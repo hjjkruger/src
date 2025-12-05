@@ -1,0 +1,616 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.2">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="en" class="scroll-smooth"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="utf-8"/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta content="width=device-width, initial-scale=1.0" name="viewport"/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Southern Right Charters | Hermanus Whale Watching&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta content="Join Southern Right Charters aboard the Miroshca for the ultimate whale watching experience in Hermanus. Daily trips from the New Harbour." name="description"/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet"/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&amp;amp;family=Open+Sans:wght@300;400;600;700&amp;amp;display=swap" rel="stylesheet"/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>(g=&gt;{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=&gt;h||(h=new Promise(async(f,n)=&gt;{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=&gt;"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=&gt;h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=&gt;r.add(f)&amp;&amp;u().then(()=&gt;d[l](f,...n))})({</p>
+<p class="p1"><span class="Apple-converted-space">        </span>key: "AIzaSyBB_SVKlC9CcEjDt1H01_B7Gjmb8FiIaGw",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>v: "weekly",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>body { font-family: 'Open Sans', sans-serif; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>h1, h2, h3, h4, h5, .font-heading { font-family: 'Montserrat', sans-serif; }</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.brand-blue { color: #004b85; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.bg-brand-blue { background-color: #004b85; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.brand-yellow { color: #ffce00; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.bg-brand-yellow { background-color: #ffce00; }</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.glass-panel {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(255, 255, 255, 0.9);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>backdrop-filter: blur(12px);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>-webkit-backdrop-filter: blur(12px);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.hero-overlay {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(to bottom, rgba(0, 75, 133, 0.4) 0%, rgba(0, 50, 90, 0.7) 100%);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* Instagram Grid Hover Effects */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.insta-overlay {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(0, 0, 0, 0.4);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: all 0.3s ease;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.group:hover .insta-overlay {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(0, 0, 0, 0.2);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body class="bg-slate-50 text-slate-800 antialiased selection:bg-yellow-200 selection:text-slate-900"&gt;</p>
+<p class="p1">&lt;!-- Top Bar --&gt;</p>
+<p class="p1">&lt;div class="bg-slate-900 text-slate-300 text-xs py-2 hidden md:block"&gt;</p>
+<p class="p1">&lt;div class="max-w-7xl mx-auto px-4 flex justify-between items-center"&gt;</p>
+<p class="p1">&lt;div class="flex gap-4"&gt;</p>
+<p class="p1">&lt;span class="flex items-center gap-1"&gt;&lt;span class="material-symbols-outlined text-[16px]"&gt;call&lt;/span&gt; +27 (0) 82 353 0550&lt;/span&gt;</p>
+<p class="p1">&lt;span class="flex items-center gap-1"&gt;&lt;span class="material-symbols-outlined text-[16px]"&gt;mail&lt;/span&gt; info@southernrightcharters.co.za&lt;/span&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;div class="flex gap-4 font-semibold text-yellow-400"&gt;</p>
+<p class="p1">&lt;span&gt;The Whale Shack, New Harbour, Hermanus&lt;/span&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;!-- Navigation --&gt;</p>
+<p class="p1">&lt;nav class="sticky top-0 w-full z-50 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300" id="navbar"&gt;</p>
+<p class="p1">&lt;div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"&gt;</p>
+<p class="p1">&lt;div class="flex justify-between items-center h-20"&gt;</p>
+<p class="p1">&lt;!-- Logo Area --&gt;</p>
+<p class="p1">&lt;div class="flex items-center gap-3"&gt;</p>
+<p class="p1">&lt;div class="w-10 h-10 bg-brand-blue rounded-full flex items-center justify-center text-white"&gt;</p>
+<p class="p1">&lt;span class="material-symbols-outlined text-2xl"&gt;sailing&lt;/span&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;div class="flex flex-col"&gt;</p>
+<p class="p1">&lt;span class="font-heading font-extrabold text-xl tracking-tight text-slate-900 leading-none"&gt;SOUTHERN RIGHT&lt;/span&gt;</p>
+<p class="p1">&lt;span class="font-heading font-bold text-sm tracking-widest text-brand-blue leading-none"&gt;CHARTERS&lt;/span&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;!-- Desktop Menu --&gt;</p>
+<p class="p1">&lt;div class="hidden md:flex space-x-8 items-center"&gt;</p>
+<p class="p1">&lt;a class="text-slate-700 hover:text-brand-blue font-semibold transition text-sm uppercase tracking-wide" href="#home"&gt;Home&lt;/a&gt;</p>
+<p class="p1">&lt;a class="text-slate-700 hover:text-brand-blue font-semibold transition text-sm uppercase tracking-wide" href="#schedule"&gt;Trips &amp;amp; Rates&lt;/a&gt;</p>
+<p class="p1">&lt;a class="text-slate-700 hover:text-brand-blue font-semibold transition text-sm uppercase tracking-wide" href="#miroshca"&gt;The Miroshca&lt;/a&gt;</p>
+<p class="p1">&lt;a class="text-slate-700 hover:text-brand-blue font-semibold transition text-sm uppercase tracking-wide" href="#sightings"&gt;Sightings&lt;/a&gt;</p>
+<p class="p1">&lt;a class="text-slate-700 hover:text-brand-blue font-semibold transition text-sm uppercase tracking-wide" href="#contact"&gt;Contact&lt;/a&gt;</p>
+<p class="p1">&lt;button class="bg-brand-blue hover:bg-sky-900 text-white px-6 py-2.5 rounded text-sm font-bold shadow-md transform hover:-translate-y-0.5 transition-all uppercase tracking-wider"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>Book Now</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/button&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/nav&gt;</p>
+<p class="p1">&lt;!-- Hero Section --&gt;</p>
+<p class="p1">&lt;header class="relative h-[85vh] min-h-[600px] flex items-center justify-center overflow-hidden" id="home"&gt;</p>
+<p class="p1">&lt;!-- Background Image --&gt;</p>
+<p class="p1">&lt;div class="absolute inset-0 z-0"&gt;</p>
+<p class="p1">&lt;img alt="Southern Right Charters Miroshca boat Hermanus" class="w-full h-full object-cover" src="/image?query=Southern+Right+Charters+Miroshca+boat+Hermanus&amp;amp;aspect=16:9"/&gt;</p>
+<p class="p1">&lt;div class="hero-overlay absolute inset-0"&gt;&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;!-- Content --&gt;</p>
+<p class="p1">&lt;div class="relative z-10 container mx-auto px-4 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mt-10"&gt;</p>
+<p class="p1">&lt;!-- Text Content --&gt;</p>
+<p class="p1">&lt;div class="lg:col-span-8 text-white space-y-8"&gt;</p>
+<p class="p1">&lt;div class="inline-flex items-center gap-2 bg-yellow-400/90 text-slate-900 px-4 py-1.5 rounded-sm font-bold shadow-lg transform -skew-x-6"&gt;</p>
+<p class="p1">&lt;span class="text-xs uppercase tracking-wider skew-x-6"&gt;Permit Holder since 1999&lt;/span&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;h1 class="font-heading text-5xl md:text-7xl font-black leading-tight drop-shadow-lg"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>EXPERIENCE THE&lt;br/&gt; GIANTS OF WALKER BAY</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/h1&gt;</p>
+<p class="p1">&lt;p class="text-lg md:text-xl text-slate-100 max-w-2xl font-light leading-relaxed drop-shadow-md"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>Join us aboard the &lt;strong&gt;Miroshca&lt;/strong&gt; for an educational and awe-inspiring encounter. Operating daily from the "Whale Shack" in the New Harbour.</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/p&gt;</p>
+<p class="p1">&lt;div class="flex flex-col sm:flex-row gap-4 pt-4"&gt;</p>
+<p class="p1">&lt;a class="bg-brand-blue hover:bg-sky-900 text-white px-8 py-4 rounded font-bold text-center transition shadow-lg flex items-center justify-center gap-2 uppercase tracking-wide" href="#schedule"&gt;</p>
+<p class="p1">&lt;span class="material-symbols-outlined"&gt;calendar_month&lt;/span&gt; View Schedule</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/a&gt;</p>
+<p class="p1">&lt;a class="bg-white hover:bg-slate-100 text-slate-900 px-8 py-4 rounded font-bold text-center transition shadow-lg flex items-center justify-center gap-2 uppercase tracking-wide" href="#contact"&gt;</p>
+<p class="p1">&lt;span class="material-symbols-outlined"&gt;location_on&lt;/span&gt; Find Us</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/a&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;!-- Weather Widget --&gt;</p>
+<p class="p1">&lt;div class="lg:col-span-4 hidden lg:block"&gt;</p>
+<p class="p1">&lt;div class="glass-panel p-8 rounded-xl shadow-2xl border-t-4 border-brand-blue"&gt;</p>
+<p class="p1">&lt;div class="flex justify-between items-start mb-6"&gt;</p>
+<p class="p1">&lt;div&gt;</p>
+<p class="p1">&lt;h3 class="text-slate-900 font-heading font-bold text-xl"&gt;Hermanus Live&lt;/h3&gt;</p>
+<p class="p1">&lt;p class="text-slate-500 text-sm font-medium" id="current-date"&gt;Loading...&lt;/p&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;div class="bg-green-100 text-green-800 px-3 py-1 rounded text-xs font-bold uppercase tracking-wide"&gt;Conditions: Good&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;div class="flex items-center justify-between mb-8"&gt;</p>
+<p class="p1">&lt;div class="flex items-start"&gt;</p>
+<p class="p1">&lt;span class="text-6xl font-bold text-slate-800"&gt;19&lt;/span&gt;</p>
+<p class="p1">&lt;span class="text-2xl font-bold text-slate-800 mt-2"&gt;°C&lt;/span&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;div class="text-right"&gt;</p>
+<p class="p1">&lt;span class="material-symbols-outlined text-5xl text-yellow-500"&gt;sunny&lt;/span&gt;</p>
+<p class="p1">&lt;p class="text-slate-600 font-semibold mt-1"&gt;Clear Skies&lt;/p&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;div class="grid grid-cols-2 gap-4"&gt;</p>
+<p class="p1">&lt;div class="bg-slate-50 p-3 rounded border border-slate-100"&gt;</p>
+<p class="p1">&lt;div class="flex items-center gap-2 mb-1"&gt;</p>
+<p class="p1">&lt;span class="material-symbols-outlined text-brand-blue text-sm"&gt;air&lt;/span&gt;</p>
+<p class="p1">&lt;span class="text-xs font-bold text-slate-500 uppercase"&gt;Wind&lt;/span&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;p class="font-bold text-slate-800"&gt;12 kts SE&lt;/p&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;div class="bg-slate-50 p-3 rounded border border-slate-100"&gt;</p>
+<p class="p1">&lt;div class="flex items-center gap-2 mb-1"&gt;</p>
+<p class="p1">&lt;span class="material-symbols-outlined text-brand-blue text-sm"&gt;waves&lt;/span&gt;</p>
+<p class="p1">&lt;span class="text-xs font-bold text-slate-500 uppercase"&gt;Swell&lt;/span&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;p class="font-bold text-slate-800"&gt;1.2m SW&lt;/p&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;div class="mt-6 pt-6 border-t border-slate-200"&gt;</p>
+<p class="p1">&lt;p class="text-xs text-slate-500 text-center italic"&gt;"Usually calm seas in the morning, slight chop in afternoon."&lt;/p&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/header&gt;</p>
+<p class="p1">&lt;!-- Schedule Section --&gt;</p>
+<p class="p1">&lt;section class="py-24 bg-white relative" id="schedule"&gt;</p>
+<p class="p1">&lt;div class="container mx-auto px-4"&gt;</p>
+<p class="p1">&lt;div class="text-center mb-16"&gt;</p>
+<p class="p1">&lt;span class="text-brand-blue font-bold tracking-widest text-sm uppercase block mb-2"&gt;Plan Your Trip&lt;/span&gt;</p>
+<p class="p1">&lt;h2 class="font-heading text-3xl md:text-4xl font-extrabold text-slate-900"&gt;Daily Departure Schedule&lt;/h2&gt;</p>
+<p class="p1">&lt;p class="text-slate-600 mt-4 max-w-2xl mx-auto"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>We operate daily from June to December. Trips are weather permitting. &lt;br/&gt;</p>
+<p class="p1">&lt;span class="font-bold text-brand-blue"&gt;Adults from R1,440 | Children (Under 12) R720&lt;/span&gt;</p>
+<p class="p1">&lt;/p&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;!-- Interactive Schedule Component --&gt;</p>
+<p class="p1">&lt;div class="grid grid-cols-1 lg:grid-cols-12 gap-8"&gt;</p>
+<p class="p1">&lt;!-- Navigation Rail --&gt;</p>
+<p class="p1">&lt;div class="lg:col-span-4 space-y-2"&gt;</p>
+<p class="p1">&lt;div class="bg-slate-50 p-4 rounded-lg border border-slate-100 mb-6"&gt;</p>
+<p class="p1">&lt;h4 class="font-bold text-slate-800 mb-2 flex items-center gap-2"&gt;</p>
+<p class="p1">&lt;span class="material-symbols-outlined text-brand-blue"&gt;info&lt;/span&gt; Note</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/h4&gt;</p>
+<p class="p1">&lt;p class="text-sm text-slate-600 leading-relaxed"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>Please arrive &lt;strong&gt;30 minutes&lt;/strong&gt; before departure for check-in and briefing at The Whale Shack.</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/p&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;div class="space-y-3" id="trip-buttons"&gt;</p>
+<p class="p1">&lt;!-- Buttons injected by JS --&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;!-- Content Area --&gt;</p>
+<p class="p1">&lt;div class="lg:col-span-8"&gt;</p>
+<p class="p1">&lt;div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-100 h-full flex flex-col relative transition-all duration-300" id="trip-card"&gt;</p>
+<p class="p1">&lt;!-- Image Header --&gt;</p>
+<p class="p1">&lt;div class="h-64 relative overflow-hidden"&gt;</p>
+<p class="p1">&lt;img alt="Trip Atmosphere" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" id="trip-image" src=""/&gt;</p>
+<p class="p1">&lt;div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent flex items-end p-8"&gt;</p>
+<p class="p1">&lt;div&gt;</p>
+<p class="p1">&lt;h3 class="text-3xl font-heading font-bold text-white mb-1" id="trip-title"&gt;Trip Title&lt;/h3&gt;</p>
+<p class="p1">&lt;p class="text-yellow-400 font-bold text-lg" id="trip-time-display"&gt;00:00&lt;/p&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;!-- Body --&gt;</p>
+<p class="p1">&lt;div class="p-8 flex-grow flex flex-col justify-between"&gt;</p>
+<p class="p1">&lt;div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8"&gt;</p>
+<p class="p1">&lt;div class="space-y-4"&gt;</p>
+<p class="p1">&lt;h4 class="font-bold text-slate-900 uppercase tracking-wide border-b border-slate-100 pb-2"&gt;Trip Details&lt;/h4&gt;</p>
+<p class="p1">&lt;ul class="space-y-3 text-slate-600"&gt;</p>
+<p class="p1">&lt;li class="flex items-start gap-3"&gt;</p>
+<p class="p1">&lt;span class="material-symbols-outlined text-brand-blue shrink-0"&gt;schedule&lt;/span&gt;</p>
+<p class="p1">&lt;span&gt;Duration: &lt;strong class="text-slate-900"&gt;1h 30m - 3h&lt;/strong&gt;&lt;/span&gt;</p>
+<p class="p1">&lt;/li&gt;</p>
+<p class="p1">&lt;li class="flex items-start gap-3"&gt;</p>
+<p class="p1">&lt;span class="material-symbols-outlined text-brand-blue shrink-0"&gt;group&lt;/span&gt;</p>
+<p class="p1">&lt;span&gt;Capacity: &lt;strong class="text-slate-900"&gt;Limited (Premium Comfort)&lt;/strong&gt;&lt;/span&gt;</p>
+<p class="p1">&lt;/li&gt;</p>
+<p class="p1">&lt;li class="flex items-start gap-3"&gt;</p>
+<p class="p1">&lt;span class="material-symbols-outlined text-brand-blue shrink-0"&gt;child_friendly&lt;/span&gt;</p>
+<p class="p1">&lt;span&gt;Ages: &lt;strong class="text-slate-900"&gt;All Ages Welcome&lt;/strong&gt;&lt;/span&gt;</p>
+<p class="p1">&lt;/li&gt;</p>
+<p class="p1">&lt;/ul&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;div class="space-y-4"&gt;</p>
+<p class="p1">&lt;h4 class="font-bold text-slate-900 uppercase tracking-wide border-b border-slate-100 pb-2"&gt;What to Expect&lt;/h4&gt;</p>
+<p class="p1">&lt;p class="text-slate-600 leading-relaxed text-sm" id="trip-description"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>Description goes here.</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/p&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;div class="bg-slate-50 rounded-xl p-4 flex flex-col md:flex-row items-center justify-between gap-4 border border-slate-100"&gt;</p>
+<p class="p1">&lt;div&gt;</p>
+<p class="p1">&lt;span class="block text-xs text-slate-500 uppercase font-bold"&gt;Status&lt;/span&gt;</p>
+<p class="p1">&lt;span class="inline-flex items-center gap-1 text-green-600 font-bold" id="trip-status"&gt;</p>
+<p class="p1">&lt;span class="w-2 h-2 rounded-full bg-green-600"&gt;&lt;/span&gt; Available</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/span&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;button class="w-full md:w-auto bg-brand-blue hover:bg-sky-900 text-white px-8 py-3 rounded font-bold shadow transition uppercase tracking-wide flex items-center justify-center gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>Book This Slot &lt;span class="material-symbols-outlined text-sm"&gt;arrow_forward&lt;/span&gt;</p>
+<p class="p1">&lt;/button&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/section&gt;</p>
+<p class="p1">&lt;!-- The Vessel: Miroshca --&gt;</p>
+<p class="p1">&lt;section class="py-24 bg-slate-900 text-white relative overflow-hidden" id="miroshca"&gt;</p>
+<p class="p1">&lt;!-- Background Texture --&gt;</p>
+<p class="p1">&lt;div class="absolute inset-0 opacity-20" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"&gt;&lt;/div&gt;</p>
+<p class="p1">&lt;div class="container mx-auto px-4 relative z-10"&gt;</p>
+<p class="p1">&lt;div class="flex flex-col lg:flex-row items-center gap-16"&gt;</p>
+<p class="p1">&lt;div class="lg:w-1/2"&gt;</p>
+<p class="p1">&lt;div class="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-slate-800"&gt;</p>
+<p class="p1">&lt;img alt="Miroshca Catamaran" class="w-full h-auto transform hover:scale-105 transition duration-700" src="/image?query=Southern+Right+Charters+Miroshca+catamaran+boat&amp;amp;aspect=4:3"&gt;</p>
+<p class="p1">&lt;div class="absolute bottom-4 left-4 bg-black/70 backdrop-blur text-white px-4 py-2 rounded text-sm font-bold"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>MV Miroshca</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1">&lt;/img&gt;&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;div class="lg:w-1/2 space-y-8"&gt;</p>
+<p class="p1">&lt;div&gt;</p>
+<p class="p1">&lt;span class="text-yellow-400 font-bold tracking-widest text-sm uppercase"&gt;Our Vessel&lt;/span&gt;</p>
+<p class="p1">&lt;h2 class="font-heading text-4xl font-extrabold mt-2 text-white"&gt;The Miroshca&lt;/h2&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;p class="text-slate-300 leading-loose text-lg font-light"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>Purpose-built for observation and comfort, the &lt;strong&gt;Miroshca&lt;/strong&gt; is a luxury power catamaran designed to provide the ultimate whale watching platform. With superior stability and silent running capabilities, she ensures a safe and eco-friendly encounter.</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/p&gt;</p>
+<p class="p1">&lt;div class="grid grid-cols-1 md:grid-cols-2 gap-6"&gt;</p>
+<p class="p1">&lt;div class="flex items-start gap-4 p-4 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition"&gt;</p>
+<p class="p1">&lt;span class="material-symbols-outlined text-yellow-400 text-3xl"&gt;deck&lt;/span&gt;</p>
+<p class="p1">&lt;div&gt;</p>
+<p class="p1">&lt;h4 class="font-bold text-white"&gt;Viewing Decks&lt;/h4&gt;</p>
+<p class="p1">&lt;p class="text-sm text-slate-400 mt-1"&gt;Walk-around decks and elevated flybridge for 360° views.&lt;/p&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;div class="flex items-start gap-4 p-4 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition"&gt;</p>
+<p class="p1">&lt;span class="material-symbols-outlined text-yellow-400 text-3xl"&gt;chair&lt;/span&gt;</p>
+<p class="p1">&lt;div&gt;</p>
+<p class="p1">&lt;h4 class="font-bold text-white"&gt;Comfort&lt;/h4&gt;</p>
+<p class="p1">&lt;p class="text-sm text-slate-400 mt-1"&gt;Sheltered seating, onboard toilets, and snack bar.&lt;/p&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;div class="flex items-start gap-4 p-4 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition"&gt;</p>
+<p class="p1">&lt;span class="material-symbols-outlined text-yellow-400 text-3xl"&gt;verified_user&lt;/span&gt;</p>
+<p class="p1">&lt;div&gt;</p>
+<p class="p1">&lt;h4 class="font-bold text-white"&gt;Safety First&lt;/h4&gt;</p>
+<p class="p1">&lt;p class="text-sm text-slate-400 mt-1"&gt;Full SAMSA safety compliance and expert crew.&lt;/p&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;div class="flex items-start gap-4 p-4 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition"&gt;</p>
+<p class="p1">&lt;span class="material-symbols-outlined text-yellow-400 text-3xl"&gt;volume_off&lt;/span&gt;</p>
+<p class="p1">&lt;div&gt;</p>
+<p class="p1">&lt;h4 class="font-bold text-white"&gt;Eco-Friendly&lt;/h4&gt;</p>
+<p class="p1">&lt;p class="text-sm text-slate-400 mt-1"&gt;Noise-dampened engines to respect marine life.&lt;/p&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/section&gt;</p>
+<p class="p1">&lt;!-- Sightings / Instagram Feed Section --&gt;</p>
+<p class="p1">&lt;section class="py-24 bg-slate-50" id="sightings"&gt;</p>
+<p class="p1">&lt;div class="container mx-auto px-4"&gt;</p>
+<p class="p1">&lt;div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6"&gt;</p>
+<p class="p1">&lt;div&gt;</p>
+<p class="p1">&lt;span class="text-brand-blue font-bold tracking-widest text-sm uppercase"&gt;Daily Sightings&lt;/span&gt;</p>
+<p class="p1">&lt;h2 class="font-heading text-3xl md:text-4xl font-extrabold text-slate-900 mt-2"&gt;Latest from Walker Bay&lt;/h2&gt;</p>
+<p class="p1">&lt;p class="text-slate-600 mt-2"&gt;Follow our journey on Instagram &lt;a class="text-brand-blue font-bold hover:underline" href="https://instagram.com/src_whalewatching" target="_blank"&gt;@src_whalewatching&lt;/a&gt;&lt;/p&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;a class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-full font-bold shadow-md hover:shadow-lg transition flex items-center gap-2 text-sm" href="https://instagram.com/src_whalewatching" target="_blank"&gt;</p>
+<p class="p1">&lt;span class="material-symbols-outlined text-lg"&gt;photo_camera&lt;/span&gt; Follow Us</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/a&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;!-- Simulated Instagram Grid --&gt;</p>
+<p class="p1">&lt;div class="grid grid-cols-2 md:grid-cols-4 gap-1 md:gap-4"&gt;</p>
+<p class="p1">&lt;!-- Item 1 --&gt;</p>
+<p class="p1">&lt;div class="group relative aspect-square overflow-hidden bg-slate-200 cursor-pointer md:rounded-lg"&gt;</p>
+<p class="p1">&lt;img alt="Whale Breach" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" src="/image?query=Southern+Right+Whale+breaching+Hermanus&amp;amp;aspect=1:1"/&gt;</p>
+<p class="p1">&lt;div class="insta-overlay absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100"&gt;</p>
+<p class="p1">&lt;div class="text-white flex gap-4 font-bold"&gt;</p>
+<p class="p1">&lt;span class="flex items-center gap-1"&gt;&lt;span class="material-symbols-outlined fill-current"&gt;favorite&lt;/span&gt; 245&lt;/span&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;!-- Item 2 --&gt;</p>
+<p class="p1">&lt;div class="group relative aspect-square overflow-hidden bg-slate-200 cursor-pointer md:rounded-lg"&gt;</p>
+<p class="p1">&lt;img alt="Boat Sighting" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" src="/image?query=Southern+Right+Charters+Miroshca+boat+sighting&amp;amp;aspect=1:1"/&gt;</p>
+<p class="p1">&lt;div class="insta-overlay absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100"&gt;</p>
+<p class="p1">&lt;div class="text-white flex gap-4 font-bold"&gt;</p>
+<p class="p1">&lt;span class="flex items-center gap-1"&gt;&lt;span class="material-symbols-outlined fill-current"&gt;favorite&lt;/span&gt; 189&lt;/span&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;!-- Item 3 --&gt;</p>
+<p class="p1">&lt;div class="group relative aspect-square overflow-hidden bg-slate-200 cursor-pointer md:rounded-lg"&gt;</p>
+<p class="p1">&lt;img alt="Whale Tail" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" src="/image?query=Southern+Right+Whale+tail+Hermanus&amp;amp;aspect=1:1"/&gt;</p>
+<p class="p1">&lt;div class="insta-overlay absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100"&gt;</p>
+<p class="p1">&lt;div class="text-white flex gap-4 font-bold"&gt;</p>
+<p class="p1">&lt;span class="flex items-center gap-1"&gt;&lt;span class="material-symbols-outlined fill-current"&gt;favorite&lt;/span&gt; 312&lt;/span&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;!-- Item 4 --&gt;</p>
+<p class="p1">&lt;div class="group relative aspect-square overflow-hidden bg-slate-200 cursor-pointer md:rounded-lg"&gt;</p>
+<p class="p1">&lt;img alt="Humpback" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" src="/image?query=Humpback+whale+Hermanus+Southern+Right+Charters&amp;amp;aspect=1:1"/&gt;</p>
+<p class="p1">&lt;div class="insta-overlay absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100"&gt;</p>
+<p class="p1">&lt;div class="text-white flex gap-4 font-bold"&gt;</p>
+<p class="p1">&lt;span class="flex items-center gap-1"&gt;&lt;span class="material-symbols-outlined fill-current"&gt;favorite&lt;/span&gt; 156&lt;/span&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/section&gt;</p>
+<p class="p1">&lt;!-- Location Section --&gt;</p>
+<p class="p1">&lt;section class="relative py-24 bg-white" id="contact"&gt;</p>
+<p class="p1">&lt;div class="container mx-auto px-4"&gt;</p>
+<p class="p1">&lt;div class="grid grid-cols-1 lg:grid-cols-12 gap-12"&gt;</p>
+<p class="p1">&lt;div class="lg:col-span-4 space-y-8"&gt;</p>
+<p class="p1">&lt;div&gt;</p>
+<p class="p1">&lt;h2 class="font-heading text-3xl font-extrabold text-slate-900"&gt;Find "The Whale Shack"&lt;/h2&gt;</p>
+<p class="p1">&lt;p class="text-slate-600 mt-4 leading-relaxed"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>We are located in the New Harbour of Hermanus. Look for our distinctive &lt;strong&gt;blue and yellow building&lt;/strong&gt; right at the water's edge.</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/p&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;div class="bg-slate-50 p-6 rounded-xl border-l-4 border-brand-blue space-y-6 shadow-sm"&gt;</p>
+<p class="p1">&lt;div class="flex items-start gap-4"&gt;</p>
+<p class="p1">&lt;div class="bg-white p-2 rounded shadow-sm text-brand-blue"&gt;</p>
+<p class="p1">&lt;span class="material-symbols-outlined"&gt;storefront&lt;/span&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;div&gt;</p>
+<p class="p1">&lt;h4 class="font-bold text-slate-800"&gt;The Whale Shack&lt;/h4&gt;</p>
+<p class="p1">&lt;p class="text-sm text-slate-600"&gt;New Harbour, Westcliff Road&lt;br/&gt;Hermanus, 7200&lt;/p&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;div class="flex items-start gap-4"&gt;</p>
+<p class="p1">&lt;div class="bg-white p-2 rounded shadow-sm text-brand-blue"&gt;</p>
+<p class="p1">&lt;span class="material-symbols-outlined"&gt;pin_drop&lt;/span&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;div&gt;</p>
+<p class="p1">&lt;h4 class="font-bold text-slate-800"&gt;GPS Coordinates&lt;/h4&gt;</p>
+<p class="p1">&lt;p class="text-sm text-slate-600 font-mono"&gt;34° 26' 00" S &lt;br/&gt; 19° 13' 28" E&lt;/p&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;div class="flex items-start gap-4"&gt;</p>
+<p class="p1">&lt;div class="bg-white p-2 rounded shadow-sm text-brand-blue"&gt;</p>
+<p class="p1">&lt;span class="material-symbols-outlined"&gt;phone&lt;/span&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;div&gt;</p>
+<p class="p1">&lt;h4 class="font-bold text-slate-800"&gt;Contact&lt;/h4&gt;</p>
+<p class="p1">&lt;p class="text-sm text-slate-600"&gt;+27 (0) 82 353 0550&lt;br/&gt;info@southernrightcharters.co.za&lt;/p&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;img alt="The Whale Shack" class="rounded-xl shadow-md w-full h-48 object-cover" src="/image?query=The+Whale+Shack+Hermanus+Southern+Right+Charters+building&amp;amp;aspect=16:9"/&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;div class="lg:col-span-8"&gt;</p>
+<p class="p1">&lt;div class="w-full h-[500px] rounded-2xl shadow-xl overflow-hidden" id="map"&gt;&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/section&gt;</p>
+<p class="p1">&lt;!-- Footer --&gt;</p>
+<p class="p1">&lt;footer class="bg-slate-900 text-slate-400 py-16 border-t border-slate-800"&gt;</p>
+<p class="p1">&lt;div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12 text-sm"&gt;</p>
+<p class="p1">&lt;div class="md:col-span-2 space-y-4"&gt;</p>
+<p class="p1">&lt;div class="flex items-center gap-2 mb-2"&gt;</p>
+<p class="p1">&lt;div class="w-8 h-8 bg-brand-blue rounded-full flex items-center justify-center text-white"&gt;</p>
+<p class="p1">&lt;span class="material-symbols-outlined text-lg"&gt;sailing&lt;/span&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;h5 class="text-white font-heading font-bold text-xl"&gt;Southern Right Charters&lt;/h5&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;p class="leading-relaxed max-w-sm"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>A leading boat-based whale watching operator in South Africa. Dedicated to conservation, education, and providing a superior guest experience since 1999.</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/p&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;div&gt;</p>
+<p class="p1">&lt;h5 class="text-white font-bold text-lg mb-6 font-heading"&gt;Quick Links&lt;/h5&gt;</p>
+<p class="p1">&lt;ul class="space-y-3"&gt;</p>
+<p class="p1">&lt;li&gt;&lt;a class="hover:text-yellow-400 transition" href="#"&gt;Our Manifesto&lt;/a&gt;&lt;/li&gt;</p>
+<p class="p1">&lt;li&gt;&lt;a class="hover:text-yellow-400 transition" href="#"&gt;Conservation&lt;/a&gt;&lt;/li&gt;</p>
+<p class="p1">&lt;li&gt;&lt;a class="hover:text-yellow-400 transition" href="#"&gt;Rates &amp;amp; Schedule&lt;/a&gt;&lt;/li&gt;</p>
+<p class="p1">&lt;li&gt;&lt;a class="hover:text-yellow-400 transition" href="#"&gt;Private Charters&lt;/a&gt;&lt;/li&gt;</p>
+<p class="p1">&lt;/ul&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;div&gt;</p>
+<p class="p1">&lt;h5 class="text-white font-bold text-lg mb-6 font-heading"&gt;Certifications&lt;/h5&gt;</p>
+<p class="p1">&lt;div class="flex gap-4 opacity-70"&gt;</p>
+<p class="p1">&lt;!-- Cert icons placeholders --&gt;</p>
+<p class="p1">&lt;div class="w-12 h-12 bg-white/10 rounded flex items-center justify-center text-xs text-center p-1"&gt;SAMSA&lt;/div&gt;</p>
+<p class="p1">&lt;div class="w-12 h-12 bg-white/10 rounded flex items-center justify-center text-xs text-center p-1"&gt;Blue Flag&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;div class="container mx-auto px-4 mt-16 pt-8 border-t border-slate-800 text-center text-xs text-slate-600"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>© 2025 Southern Right Charters. All rights reserved.</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1">&lt;/footer&gt;</p>
+<p class="p1">&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>// --- 1. Dynamic Schedule Logic ---</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const trips = [</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{</p>
+<p class="p1"><span class="Apple-converted-space">            </span>time: "06:30",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>label: "Early Bird",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>seasonal: true,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>desc: "A magical sunrise start. Perfect for photographers seeking calm waters and golden light.",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>status: "Seasonal (Sep-Nov)",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>img: "/gen?prompt=sunrise+over+hermanus+ocean+with+whale+fin&amp;aspect=16:9"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>},</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{</p>
+<p class="p1"><span class="Apple-converted-space">            </span>time: "09:00",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>label: "Morning Trip",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>seasonal: false,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>desc: "Our most popular departure. Generally offers calm sea conditions and excellent visibility.",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>status: "Available",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>img: "/image?query=Southern+Right+Charters+whale+watching+trip+morning&amp;aspect=16:9"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>},</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{</p>
+<p class="p1"><span class="Apple-converted-space">            </span>time: "12:00",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>label: "Mid-Day Trip",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>seasonal: false,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>desc: "Experience the high sun illuminating the depths, often allowing you to see whales underwater.",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>status: "Filling Fast",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>img: "/image?query=Southern+Right+Charters+boat+trip+sunny&amp;aspect=16:9"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>},</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{</p>
+<p class="p1"><span class="Apple-converted-space">            </span>time: "15:00",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>label: "Afternoon Trip",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>seasonal: false,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>desc: "Enjoy the afternoon breeze. Often active surface behavior like breaching is observed.",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>status: "Available",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>img: "/gen?prompt=whale+breaching+hermanus+afternoon+light&amp;aspect=16:9"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>},</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{</p>
+<p class="p1"><span class="Apple-converted-space">            </span>time: "17:00",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>label: "Sunset Trip",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>seasonal: true,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>desc: "A spectacular way to end the day. Watch the sunset over Walker Bay with the gentle giants.",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>status: "Seasonal (Sep-Dec)",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>img: "/gen?prompt=sunset+ocean+hermanus+whale+silhouette&amp;aspect=16:9"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>let currentTripIndex = 1; // Default to 09:00</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function renderSchedule() {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const btnContainer = document.getElementById('trip-buttons');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>btnContainer.innerHTML = '';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>trips.forEach((trip, index) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const btn = document.createElement('button');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const isActive = index === currentTripIndex;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>btn.className = `w-full text-left px-5 py-4 rounded-lg transition-all duration-200 border flex justify-between items-center group ${</p>
+<p class="p1"><span class="Apple-converted-space">                </span>isActive<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>? 'bg-brand-blue text-white shadow-lg border-brand-blue translate-x-2'<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>: 'bg-white text-slate-700 border-slate-200 hover:border-brand-blue hover:shadow-md'</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}`;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>btn.innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="block font-bold text-lg font-heading"&gt;${trip.time}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="text-xs uppercase tracking-wider ${isActive ? 'text-blue-100' : 'text-slate-500'}"&gt;${trip.label}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>${trip.seasonal ? '&lt;span class="text-[10px] bg-yellow-400 text-slate-900 px-2 py-1 rounded font-bold uppercase"&gt;Seasonal&lt;/span&gt;' : ''}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>`;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>btn.onclick = () =&gt; loadTrip(index);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>btnContainer.appendChild(btn);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function loadTrip(index) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>currentTripIndex = index;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>renderSchedule(); // Update buttons state</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const trip = trips[index];</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const card = document.getElementById('trip-card');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const img = document.getElementById('trip-image');</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Simple fade effect</p>
+<p class="p1"><span class="Apple-converted-space">        </span>card.style.opacity = '0.7';</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>setTimeout(() =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('trip-title').innerText = trip.label;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('trip-time-display').innerText = trip.time;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('trip-description').innerText = trip.desc;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const statusEl = document.getElementById('trip-status');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>statusEl.innerHTML = `&lt;span class="w-2 h-2 rounded-full ${trip.seasonal ? 'bg-yellow-500' : 'bg-green-600'}"&gt;&lt;/span&gt; ${trip.status}`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>statusEl.className = `inline-flex items-center gap-1 font-bold ${trip.seasonal ? 'text-yellow-600' : 'text-green-600'}`;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>img.src = trip.img;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>card.style.opacity = '1';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}, 200);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// --- 2. Live Date ---</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const dateOpts = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('current-date').innerText = new Date().toLocaleDateString('en-GB', dateOpts);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// --- 3. Google Maps ---</p>
+<p class="p1"><span class="Apple-converted-space">    </span>async function initMap() {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const { Map, InfoWindow } = await google.maps.importLibrary("maps");</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Coordinates for "The Whale Shack" New Harbour</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const whaleShackPos = { lat: -34.4333, lng: 19.2244 };<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const map = new Map(document.getElementById("map"), {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>center: { lat: -34.425, lng: 19.230 }, // Slightly offset to show bay context</p>
+<p class="p1"><span class="Apple-converted-space">            </span>zoom: 14,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>mapId: 'SRC_MAP_ID',</p>
+<p class="p1"><span class="Apple-converted-space">            </span>disableDefaultUI: true,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gestureHandling: 'cooperative'</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Custom Pin</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const glyph = document.createElement("div");</p>
+<p class="p1"><span class="Apple-converted-space">        </span>glyph.innerHTML = '&lt;span class="material-symbols-outlined text-white text-lg"&gt;sailing&lt;/span&gt;';</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const pin = new PinElement({</p>
+<p class="p1"><span class="Apple-converted-space">            </span>glyph: glyph,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: "#004b85",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>borderColor: "#ffffff",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>scale: 1.3</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const marker = new AdvancedMarkerElement({</p>
+<p class="p1"><span class="Apple-converted-space">            </span>map,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: whaleShackPos,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>content: pin.element,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>title: "Southern Right Charters"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const iwContent = document.createElement("div");</p>
+<p class="p1"><span class="Apple-converted-space">        </span>iwContent.className = "p-2 min-w-[200px]";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>iwContent.innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3 class="font-bold text-slate-900 mb-1"&gt;The Whale Shack&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="text-sm text-slate-600"&gt;Check-in here.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="text-xs text-brand-blue font-bold mt-2"&gt;New Harbour&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>`;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const infoWindow = new InfoWindow({</p>
+<p class="p1"><span class="Apple-converted-space">            </span>content: iwContent,</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>marker.addListener("click", () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>infoWindow.open(map, marker);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>infoWindow.open(map, marker);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Init</p>
+<p class="p1"><span class="Apple-converted-space">    </span>renderSchedule();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>loadTrip(1); // Load Morning Trip initially</p>
+<p class="p1"><span class="Apple-converted-space">    </span>initMap();</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
