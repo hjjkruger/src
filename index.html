@@ -4,16 +4,19 @@
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>Southern Right Charters | Hermanus Whale Watching</title>
-    <meta content="Join Southern Right Charters aboard the Miroshca for the ultimate whale watching experience in Hermanus. Daily trips from the New Harbour." name="description"/>
+    <meta content="Join Southern Right Charters aboard the Miroshca for the ultimate whale watching experience in Hermanus." name="description"/>
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet"/>
-    <script>
-        (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
-      key: "AIzaSyBB_SVKlC9CcEjDt1H01_B7Gjmb8FiIaGw",
-      v: "weekly",
-  });
-    </script>
+    
+    <!-- Leaflet Maps (Free Alternative to Google Maps) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
     <style>
         body { font-family: 'Open Sans', sans-serif; }
         h1, h2, h3, h4, h5, .font-heading { font-family: 'Montserrat', sans-serif; }
@@ -30,7 +33,7 @@
         }
         
         .hero-overlay {
-            background: linear-gradient(to bottom, rgba(0, 75, 133, 0.4) 0%, rgba(0, 50, 90, 0.7) 100%);
+            background: linear-gradient(to bottom, rgba(0, 75, 133, 0.3) 0%, rgba(0, 50, 90, 0.6) 100%);
         }
 
         /* Instagram Grid Hover Effects */
@@ -41,399 +44,424 @@
         .group:hover .insta-overlay {
             background: rgba(0, 0, 0, 0.2);
         }
+        
+        /* Map Container */
+        #map { height: 100%; width: 100%; z-index: 1; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased selection:bg-yellow-200 selection:text-slate-900">
+
 <!-- Top Bar -->
 <div class="bg-slate-900 text-slate-300 text-xs py-2 hidden md:block">
-<div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
-<div class="flex gap-4">
-<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">call</span> +27 (0) 82 353 0550</span>
-<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">mail</span> info@southernrightcharters.co.za</span>
+    <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+        <div class="flex gap-4">
+            <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">call</span> +27 (0) 82 353 0550</span>
+            <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">mail</span> info@southernrightcharters.co.za</span>
+        </div>
+        <div class="flex gap-4 font-semibold text-yellow-400">
+            <span>The Whale Shack, New Harbour, Hermanus</span>
+        </div>
+    </div>
 </div>
-<div class="flex gap-4 font-semibold text-yellow-400">
-<span>The Whale Shack, New Harbour, Hermanus</span>
-</div>
-</div>
-</div>
+
 <!-- Navigation -->
 <nav class="sticky top-0 w-full z-50 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300" id="navbar">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="flex justify-between items-center h-20">
-<!-- Logo Area -->
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 bg-brand-blue rounded-full flex items-center justify-center text-white">
-<span class="material-symbols-outlined text-2xl">sailing</span>
-</div>
-<div class="flex flex-col">
-<span class="font-heading font-extrabold text-xl tracking-tight text-slate-900 leading-none">SOUTHERN RIGHT</span>
-<span class="font-heading font-bold text-sm tracking-widest text-brand-blue leading-none">CHARTERS</span>
-</div>
-</div>
-<!-- Desktop Menu -->
-<div class="hidden md:flex space-x-8 items-center">
-<a class="text-slate-700 hover:text-brand-blue font-semibold transition text-sm uppercase tracking-wide" href="#home">Home</a>
-<a class="text-slate-700 hover:text-brand-blue font-semibold transition text-sm uppercase tracking-wide" href="#schedule">Trips & Rates</a>
-<a class="text-slate-700 hover:text-brand-blue font-semibold transition text-sm uppercase tracking-wide" href="#miroshca">The Miroshca</a>
-<a class="text-slate-700 hover:text-brand-blue font-semibold transition text-sm uppercase tracking-wide" href="#sightings">Sightings</a>
-<a class="text-slate-700 hover:text-brand-blue font-semibold transition text-sm uppercase tracking-wide" href="#contact">Contact</a>
-<button class="bg-brand-blue hover:bg-sky-900 text-white px-6 py-2.5 rounded text-sm font-bold shadow-md transform hover:-translate-y-0.5 transition-all uppercase tracking-wider">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+            <!-- Logo Area -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-brand-blue rounded-full flex items-center justify-center text-white">
+                    <span class="material-symbols-outlined text-2xl">sailing</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-heading font-extrabold text-xl tracking-tight text-slate-900 leading-none">SOUTHERN RIGHT</span>
+                    <span class="font-heading font-bold text-sm tracking-widest text-brand-blue leading-none">CHARTERS</span>
+                </div>
+            </div>
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 items-center">
+                <a class="text-slate-700 hover:text-brand-blue font-semibold transition text-sm uppercase tracking-wide" href="#home">Home</a>
+                <a class="text-slate-700 hover:text-brand-blue font-semibold transition text-sm uppercase tracking-wide" href="#schedule">Trips & Rates</a>
+                <a class="text-slate-700 hover:text-brand-blue font-semibold transition text-sm uppercase tracking-wide" href="#miroshca">The Miroshca</a>
+                <a class="text-slate-700 hover:text-brand-blue font-semibold transition text-sm uppercase tracking-wide" href="#sightings">Sightings</a>
+                <a class="text-slate-700 hover:text-brand-blue font-semibold transition text-sm uppercase tracking-wide" href="#contact">Contact</a>
+                <button class="bg-brand-blue hover:bg-sky-900 text-white px-6 py-2.5 rounded text-sm font-bold shadow-md transform hover:-translate-y-0.5 transition-all uppercase tracking-wider">
                     Book Now
                 </button>
-</div>
-</div>
-</div>
+            </div>
+        </div>
+    </div>
 </nav>
+
 <!-- Hero Section -->
 <header class="relative h-[85vh] min-h-[600px] flex items-center justify-center overflow-hidden" id="home">
-<!-- Background Image -->
-<div class="absolute inset-0 z-0">
-<img alt="Southern Right Charters Miroshca boat Hermanus" class="w-full h-full object-cover" src="https://placehold.co/1920x1080/004b85/FFFFFF?text=Southern+Right+Charters+-+Hero+Image"/>
-<div class="hero-overlay absolute inset-0"></div>
-</div>
-<!-- Content -->
-<div class="relative z-10 container mx-auto px-4 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mt-10">
-<!-- Text Content -->
-<div class="lg:col-span-8 text-white space-y-8">
-<div class="inline-flex items-center gap-2 bg-yellow-400/90 text-slate-900 px-4 py-1.5 rounded-sm font-bold shadow-lg transform -skew-x-6">
-<span class="text-xs uppercase tracking-wider skew-x-6">Permit Holder since 1999</span>
-</div>
-<h1 class="font-heading text-5xl md:text-7xl font-black leading-tight drop-shadow-lg">
+    <!-- Background Image (Real Unsplash Photo) -->
+    <div class="absolute inset-0 z-0">
+        <img alt="Southern Right Whale breaching" class="w-full h-full object-cover" 
+             src="https://images.unsplash.com/photo-1568430462989-44163eb1752f?auto=format&fit=crop&w=1920&q=80"/>
+        <div class="hero-overlay absolute inset-0"></div>
+    </div>
+    
+    <!-- Content -->
+    <div class="relative z-10 container mx-auto px-4 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mt-10">
+        <!-- Text Content -->
+        <div class="lg:col-span-8 text-white space-y-8">
+            <div class="inline-flex items-center gap-2 bg-yellow-400/90 text-slate-900 px-4 py-1.5 rounded-sm font-bold shadow-lg transform -skew-x-6">
+                <span class="text-xs uppercase tracking-wider skew-x-6">Permit Holder since 1999</span>
+            </div>
+            <h1 class="font-heading text-5xl md:text-7xl font-black leading-tight drop-shadow-lg">
                 EXPERIENCE THE<br/> GIANTS OF WALKER BAY
             </h1>
-<p class="text-lg md:text-xl text-slate-100 max-w-2xl font-light leading-relaxed drop-shadow-md">
+            <p class="text-lg md:text-xl text-slate-100 max-w-2xl font-light leading-relaxed drop-shadow-md">
                 Join us aboard the <strong>Miroshca</strong> for an educational and awe-inspiring encounter. Operating daily from the "Whale Shack" in the New Harbour.
             </p>
-<div class="flex flex-col sm:flex-row gap-4 pt-4">
-<a class="bg-brand-blue hover:bg-sky-900 text-white px-8 py-4 rounded font-bold text-center transition shadow-lg flex items-center justify-center gap-2 uppercase tracking-wide" href="#schedule">
-<span class="material-symbols-outlined">calendar_month</span> View Schedule
+            <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                <a class="bg-brand-blue hover:bg-sky-900 text-white px-8 py-4 rounded font-bold text-center transition shadow-lg flex items-center justify-center gap-2 uppercase tracking-wide" href="#schedule">
+                    <span class="material-symbols-outlined">calendar_month</span> View Schedule
                 </a>
-<a class="bg-white hover:bg-slate-100 text-slate-900 px-8 py-4 rounded font-bold text-center transition shadow-lg flex items-center justify-center gap-2 uppercase tracking-wide" href="#contact">
-<span class="material-symbols-outlined">location_on</span> Find Us
+                <a class="bg-white hover:bg-slate-100 text-slate-900 px-8 py-4 rounded font-bold text-center transition shadow-lg flex items-center justify-center gap-2 uppercase tracking-wide" href="#contact">
+                    <span class="material-symbols-outlined">location_on</span> Find Us
                 </a>
-</div>
-</div>
-<!-- Weather Widget -->
-<div class="lg:col-span-4 hidden lg:block">
-<div class="glass-panel p-8 rounded-xl shadow-2xl border-t-4 border-brand-blue">
-<div class="flex justify-between items-start mb-6">
-<div>
-<h3 class="text-slate-900 font-heading font-bold text-xl">Hermanus Live</h3>
-<p class="text-slate-500 text-sm font-medium" id="current-date">Loading...</p>
-</div>
-<div class="bg-green-100 text-green-800 px-3 py-1 rounded text-xs font-bold uppercase tracking-wide">Conditions: Good</div>
-</div>
-<div class="flex items-center justify-between mb-8">
-<div class="flex items-start">
-<span class="text-6xl font-bold text-slate-800">19</span>
-<span class="text-2xl font-bold text-slate-800 mt-2">°C</span>
-</div>
-<div class="text-right">
-<span class="material-symbols-outlined text-5xl text-yellow-500">sunny</span>
-<p class="text-slate-600 font-semibold mt-1">Clear Skies</p>
-</div>
-</div>
-<div class="grid grid-cols-2 gap-4">
-<div class="bg-slate-50 p-3 rounded border border-slate-100">
-<div class="flex items-center gap-2 mb-1">
-<span class="material-symbols-outlined text-brand-blue text-sm">air</span>
-<span class="text-xs font-bold text-slate-500 uppercase">Wind</span>
-</div>
-<p class="font-bold text-slate-800">12 kts SE</p>
-</div>
-<div class="bg-slate-50 p-3 rounded border border-slate-100">
-<div class="flex items-center gap-2 mb-1">
-<span class="material-symbols-outlined text-brand-blue text-sm">waves</span>
-<span class="text-xs font-bold text-slate-500 uppercase">Swell</span>
-</div>
-<p class="font-bold text-slate-800">1.2m SW</p>
-</div>
-</div>
-<div class="mt-6 pt-6 border-t border-slate-200">
-<p class="text-xs text-slate-500 text-center italic">"Usually calm seas in the morning, slight chop in afternoon."</p>
-</div>
-</div>
-</div>
-</div>
+            </div>
+        </div>
+
+        <!-- Weather Widget -->
+        <div class="lg:col-span-4 hidden lg:block">
+            <div class="glass-panel p-8 rounded-xl shadow-2xl border-t-4 border-brand-blue">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <h3 class="text-slate-900 font-heading font-bold text-xl">Hermanus Live</h3>
+                        <p class="text-slate-500 text-sm font-medium" id="current-date">Loading...</p>
+                    </div>
+                    <div class="bg-green-100 text-green-800 px-3 py-1 rounded text-xs font-bold uppercase tracking-wide">Conditions: Good</div>
+                </div>
+                <div class="flex items-center justify-between mb-8">
+                    <div class="flex items-start">
+                        <span class="text-6xl font-bold text-slate-800">19</span>
+                        <span class="text-2xl font-bold text-slate-800 mt-2">°C</span>
+                    </div>
+                    <div class="text-right">
+                        <span class="material-symbols-outlined text-5xl text-yellow-500">sunny</span>
+                        <p class="text-slate-600 font-semibold mt-1">Clear Skies</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-slate-50 p-3 rounded border border-slate-100">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="material-symbols-outlined text-brand-blue text-sm">air</span>
+                            <span class="text-xs font-bold text-slate-500 uppercase">Wind</span>
+                        </div>
+                        <p class="font-bold text-slate-800">12 kts SE</p>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded border border-slate-100">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="material-symbols-outlined text-brand-blue text-sm">waves</span>
+                            <span class="text-xs font-bold text-slate-500 uppercase">Swell</span>
+                        </div>
+                        <p class="font-bold text-slate-800">1.2m SW</p>
+                    </div>
+                </div>
+                <div class="mt-6 pt-6 border-t border-slate-200">
+                    <p class="text-xs text-slate-500 text-center italic">"Usually calm seas in the morning, slight chop in afternoon."</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </header>
+
 <!-- Schedule Section -->
 <section class="py-24 bg-white relative" id="schedule">
-<div class="container mx-auto px-4">
-<div class="text-center mb-16">
-<span class="text-brand-blue font-bold tracking-widest text-sm uppercase block mb-2">Plan Your Trip</span>
-<h2 class="font-heading text-3xl md:text-4xl font-extrabold text-slate-900">Daily Departure Schedule</h2>
-<p class="text-slate-600 mt-4 max-w-2xl mx-auto">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+            <span class="text-brand-blue font-bold tracking-widest text-sm uppercase block mb-2">Plan Your Trip</span>
+            <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-slate-900">Daily Departure Schedule</h2>
+            <p class="text-slate-600 mt-4 max-w-2xl mx-auto">
                 We operate daily from June to December. Trips are weather permitting. <br/>
-<span class="font-bold text-brand-blue">Adults from R1,440 | Children (Under 12) R720</span>
-</p>
-</div>
-<!-- Interactive Schedule Component -->
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-<!-- Navigation Rail -->
-<div class="lg:col-span-4 space-y-2">
-<div class="bg-slate-50 p-4 rounded-lg border border-slate-100 mb-6">
-<h4 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
-<span class="material-symbols-outlined text-brand-blue">info</span> Note
+                <span class="font-bold text-brand-blue">Adults from R1,440 | Children (Under 12) R720</span>
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- Navigation Rail -->
+            <div class="lg:col-span-4 space-y-2">
+                <div class="bg-slate-50 p-4 rounded-lg border border-slate-100 mb-6">
+                    <h4 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-brand-blue">info</span> Note
                     </h4>
-<p class="text-sm text-slate-600 leading-relaxed">
+                    <p class="text-sm text-slate-600 leading-relaxed">
                         Please arrive <strong>30 minutes</strong> before departure for check-in and briefing at The Whale Shack.
                     </p>
-</div>
-<div class="space-y-3" id="trip-buttons">
-<!-- Buttons injected by JS -->
-</div>
-</div>
-<!-- Content Area -->
-<div class="lg:col-span-8">
-<div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-100 h-full flex flex-col relative transition-all duration-300" id="trip-card">
-<!-- Image Header -->
-<div class="h-64 relative overflow-hidden">
-<img alt="Trip Atmosphere" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" id="trip-image" src=""/>
-<div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent flex items-end p-8">
-<div>
-<h3 class="text-3xl font-heading font-bold text-white mb-1" id="trip-title">Trip Title</h3>
-<p class="text-yellow-400 font-bold text-lg" id="trip-time-display">00:00</p>
-</div>
-</div>
-</div>
-<!-- Body -->
-<div class="p-8 flex-grow flex flex-col justify-between">
-<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-<div class="space-y-4">
-<h4 class="font-bold text-slate-900 uppercase tracking-wide border-b border-slate-100 pb-2">Trip Details</h4>
-<ul class="space-y-3 text-slate-600">
-<li class="flex items-start gap-3">
-<span class="material-symbols-outlined text-brand-blue shrink-0">schedule</span>
-<span>Duration: <strong class="text-slate-900">1h 30m - 3h</strong></span>
-</li>
-<li class="flex items-start gap-3">
-<span class="material-symbols-outlined text-brand-blue shrink-0">group</span>
-<span>Capacity: <strong class="text-slate-900">Limited (Premium Comfort)</strong></span>
-</li>
-<li class="flex items-start gap-3">
-<span class="material-symbols-outlined text-brand-blue shrink-0">child_friendly</span>
-<span>Ages: <strong class="text-slate-900">All Ages Welcome</strong></span>
-</li>
-</ul>
-</div>
-<div class="space-y-4">
-<h4 class="font-bold text-slate-900 uppercase tracking-wide border-b border-slate-100 pb-2">What to Expect</h4>
-<p class="text-slate-600 leading-relaxed text-sm" id="trip-description">
+                </div>
+                <div class="space-y-3" id="trip-buttons">
+                    <!-- Buttons injected by JS -->
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="lg:col-span-8">
+                <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-100 h-full flex flex-col relative transition-all duration-300" id="trip-card">
+                    <!-- Image Header -->
+                    <div class="h-64 relative overflow-hidden">
+                        <img id="trip-image" src="" alt="Trip Atmosphere" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105"/>
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent flex items-end p-8">
+                            <div>
+                                <h3 id="trip-title" class="text-3xl font-heading font-bold text-white mb-1">Trip Title</h3>
+                                <p id="trip-time-display" class="text-yellow-400 font-bold text-lg">00:00</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Body -->
+                    <div class="p-8 flex-grow flex flex-col justify-between">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                            <div class="space-y-4">
+                                <h4 class="font-bold text-slate-900 uppercase tracking-wide border-b border-slate-100 pb-2">Trip Details</h4>
+                                <ul class="space-y-3 text-slate-600">
+                                    <li class="flex items-start gap-3">
+                                        <span class="material-symbols-outlined text-brand-blue shrink-0">schedule</span>
+                                        <span>Duration: <strong class="text-slate-900">1h 30m - 3h</strong></span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span class="material-symbols-outlined text-brand-blue shrink-0">group</span>
+                                        <span>Capacity: <strong class="text-slate-900">Limited (Premium Comfort)</strong></span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span class="material-symbols-outlined text-brand-blue shrink-0">child_friendly</span>
+                                        <span>Ages: <strong class="text-slate-900">All Ages Welcome</strong></span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="space-y-4">
+                                <h4 class="font-bold text-slate-900 uppercase tracking-wide border-b border-slate-100 pb-2">What to Expect</h4>
+                                <p id="trip-description" class="text-slate-600 leading-relaxed text-sm">
                                     Description goes here.
                                 </p>
-</div>
-</div>
-<div class="bg-slate-50 rounded-xl p-4 flex flex-col md:flex-row items-center justify-between gap-4 border border-slate-100">
-<div>
-<span class="block text-xs text-slate-500 uppercase font-bold">Status</span>
-<span class="inline-flex items-center gap-1 text-green-600 font-bold" id="trip-status">
-<span class="w-2 h-2 rounded-full bg-green-600"></span> Available
+                            </div>
+                        </div>
+                        <div class="bg-slate-50 rounded-xl p-4 flex flex-col md:flex-row items-center justify-between gap-4 border border-slate-100">
+                            <div>
+                                <span class="block text-xs text-slate-500 uppercase font-bold">Status</span>
+                                <span id="trip-status" class="inline-flex items-center gap-1 text-green-600 font-bold">
+                                    <span class="w-2 h-2 rounded-full bg-green-600"></span> Available
                                 </span>
-</div>
-<button class="w-full md:w-auto bg-brand-blue hover:bg-sky-900 text-white px-8 py-3 rounded font-bold shadow transition uppercase tracking-wide flex items-center justify-center gap-2">
+                            </div>
+                            <button class="w-full md:w-auto bg-brand-blue hover:bg-sky-900 text-white px-8 py-3 rounded font-bold shadow transition uppercase tracking-wide flex items-center justify-center gap-2">
                                 Book This Slot <span class="material-symbols-outlined text-sm">arrow_forward</span>
-</button>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
+
 <!-- The Vessel: Miroshca -->
 <section class="py-24 bg-slate-900 text-white relative overflow-hidden" id="miroshca">
-<!-- Background Texture -->
-<div class="absolute inset-0 opacity-20" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
-<div class="container mx-auto px-4 relative z-10">
-<div class="flex flex-col lg:flex-row items-center gap-16">
-<div class="lg:w-1/2">
-<div class="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-slate-800">
-<img alt="Miroshca Catamaran" class="w-full h-auto transform hover:scale-105 transition duration-700" src="https://placehold.co/800x600/004b85/FFFFFF?text=The+Miroshca+Catamaran">
-<div class="absolute bottom-4 left-4 bg-black/70 backdrop-blur text-white px-4 py-2 rounded text-sm font-bold">
+    <!-- Background Texture -->
+    <div class="absolute inset-0 opacity-20" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="flex flex-col lg:flex-row items-center gap-16">
+            <div class="lg:w-1/2">
+                <div class="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-slate-800">
+                    <img src="https://images.unsplash.com/photo-1544253327-9a6509f63583?auto=format&fit=crop&w=800&q=80" 
+                         alt="Catamaran Boat" class="w-full h-auto transform hover:scale-105 transition duration-700">
+                    <div class="absolute bottom-4 left-4 bg-black/70 backdrop-blur text-white px-4 py-2 rounded text-sm font-bold">
                         MV Miroshca
                     </div>
-</img></div>
-</div>
-<div class="lg:w-1/2 space-y-8">
-<div>
-<span class="text-yellow-400 font-bold tracking-widest text-sm uppercase">Our Vessel</span>
-<h2 class="font-heading text-4xl font-extrabold mt-2 text-white">The Miroshca</h2>
-</div>
-<p class="text-slate-300 leading-loose text-lg font-light">
+                </div>
+            </div>
+            <div class="lg:w-1/2 space-y-8">
+                <div>
+                    <span class="text-yellow-400 font-bold tracking-widest text-sm uppercase">Our Vessel</span>
+                    <h2 class="font-heading text-4xl font-extrabold mt-2 text-white">The Miroshca</h2>
+                </div>
+                <p class="text-slate-300 leading-loose text-lg font-light">
                     Purpose-built for observation and comfort, the <strong>Miroshca</strong> is a luxury power catamaran designed to provide the ultimate whale watching platform. With superior stability and silent running capabilities, she ensures a safe and eco-friendly encounter.
                 </p>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div class="flex items-start gap-4 p-4 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition">
-<span class="material-symbols-outlined text-yellow-400 text-3xl">deck</span>
-<div>
-<h4 class="font-bold text-white">Viewing Decks</h4>
-<p class="text-sm text-slate-400 mt-1">Walk-around decks and elevated flybridge for 360° views.</p>
-</div>
-</div>
-<div class="flex items-start gap-4 p-4 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition">
-<span class="material-symbols-outlined text-yellow-400 text-3xl">chair</span>
-<div>
-<h4 class="font-bold text-white">Comfort</h4>
-<p class="text-sm text-slate-400 mt-1">Sheltered seating, onboard toilets, and snack bar.</p>
-</div>
-</div>
-<div class="flex items-start gap-4 p-4 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition">
-<span class="material-symbols-outlined text-yellow-400 text-3xl">verified_user</span>
-<div>
-<h4 class="font-bold text-white">Safety First</h4>
-<p class="text-sm text-slate-400 mt-1">Full SAMSA safety compliance and expert crew.</p>
-</div>
-</div>
-<div class="flex items-start gap-4 p-4 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition">
-<span class="material-symbols-outlined text-yellow-400 text-3xl">volume_off</span>
-<div>
-<h4 class="font-bold text-white">Eco-Friendly</h4>
-<p class="text-sm text-slate-400 mt-1">Noise-dampened engines to respect marine life.</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="flex items-start gap-4 p-4 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition">
+                        <span class="material-symbols-outlined text-yellow-400 text-3xl">deck</span>
+                        <div>
+                            <h4 class="font-bold text-white">Viewing Decks</h4>
+                            <p class="text-sm text-slate-400 mt-1">Walk-around decks and elevated flybridge for 360° views.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 p-4 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition">
+                        <span class="material-symbols-outlined text-yellow-400 text-3xl">chair</span>
+                        <div>
+                            <h4 class="font-bold text-white">Comfort</h4>
+                            <p class="text-sm text-slate-400 mt-1">Sheltered seating, onboard toilets, and snack bar.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 p-4 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition">
+                        <span class="material-symbols-outlined text-yellow-400 text-3xl">verified_user</span>
+                        <div>
+                            <h4 class="font-bold text-white">Safety First</h4>
+                            <p class="text-sm text-slate-400 mt-1">Full SAMSA safety compliance and expert crew.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 p-4 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition">
+                        <span class="material-symbols-outlined text-yellow-400 text-3xl">volume_off</span>
+                        <div>
+                            <h4 class="font-bold text-white">Eco-Friendly</h4>
+                            <p class="text-sm text-slate-400 mt-1">Noise-dampened engines to respect marine life.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
+
 <!-- Sightings / Instagram Feed Section -->
 <section class="py-24 bg-slate-50" id="sightings">
-<div class="container mx-auto px-4">
-<div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-<div>
-<span class="text-brand-blue font-bold tracking-widest text-sm uppercase">Daily Sightings</span>
-<h2 class="font-heading text-3xl md:text-4xl font-extrabold text-slate-900 mt-2">Latest from Walker Bay</h2>
-<p class="text-slate-600 mt-2">Follow our journey on Instagram <a class="text-brand-blue font-bold hover:underline" href="https://instagram.com/src_whalewatching" target="_blank">@src_whalewatching</a></p>
-</div>
-<a class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-full font-bold shadow-md hover:shadow-lg transition flex items-center gap-2 text-sm" href="https://instagram.com/src_whalewatching" target="_blank">
-<span class="material-symbols-outlined text-lg">photo_camera</span> Follow Us
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+            <div>
+                <span class="text-brand-blue font-bold tracking-widest text-sm uppercase">Daily Sightings</span>
+                <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-slate-900 mt-2">Latest from Walker Bay</h2>
+                <p class="text-slate-600 mt-2">Follow our journey on Instagram <a href="https://instagram.com/src_whalewatching" target="_blank" class="text-brand-blue font-bold hover:underline">@src_whalewatching</a></p>
+            </div>
+            <a href="https://instagram.com/src_whalewatching" target="_blank" class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-full font-bold shadow-md hover:shadow-lg transition flex items-center gap-2 text-sm">
+                <span class="material-symbols-outlined text-lg">photo_camera</span> Follow Us
             </a>
-</div>
-<!-- Simulated Instagram Grid -->
-<div class="grid grid-cols-2 md:grid-cols-4 gap-1 md:gap-4">
-<!-- Item 1 -->
-<div class="group relative aspect-square overflow-hidden bg-slate-200 cursor-pointer md:rounded-lg">
-<img alt="Whale Breach" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" src="https://placehold.co/600x600/004b85/FFFFFF?text=Whale+Breaching"/>
-<div class="insta-overlay absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100">
-<div class="text-white flex gap-4 font-bold">
-<span class="flex items-center gap-1"><span class="material-symbols-outlined fill-current">favorite</span> 245</span>
-</div>
-</div>
-</div>
-<!-- Item 2 -->
-<div class="group relative aspect-square overflow-hidden bg-slate-200 cursor-pointer md:rounded-lg">
-<img alt="Boat Sighting" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" src="https://placehold.co/600x600/0E7490/FFFFFF?text=Boat+Sighting"/>
-<div class="insta-overlay absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100">
-<div class="text-white flex gap-4 font-bold">
-<span class="flex items-center gap-1"><span class="material-symbols-outlined fill-current">favorite</span> 189</span>
-</div>
-</div>
-</div>
-<!-- Item 3 -->
-<div class="group relative aspect-square overflow-hidden bg-slate-200 cursor-pointer md:rounded-lg">
-<img alt="Whale Tail" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" src="https://placehold.co/600x600/FFCE00/000000?text=Whale+Tail"/>
-<div class="insta-overlay absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100">
-<div class="text-white flex gap-4 font-bold">
-<span class="flex items-center gap-1"><span class="material-symbols-outlined fill-current">favorite</span> 312</span>
-</div>
-</div>
-</div>
-<!-- Item 4 -->
-<div class="group relative aspect-square overflow-hidden bg-slate-200 cursor-pointer md:rounded-lg">
-<img alt="Humpback" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" src="https://placehold.co/600x600/004b85/FFFFFF?text=Humpback"/>
-<div class="insta-overlay absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100">
-<div class="text-white flex gap-4 font-bold">
-<span class="flex items-center gap-1"><span class="material-symbols-outlined fill-current">favorite</span> 156</span>
-</div>
-</div>
-</div>
-</div>
-</div>
+        </div>
+        
+        <!-- Simulated Instagram Grid (Replaced with Real Images) -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-1 md:gap-4">
+            <!-- Item 1: Whale Breach -->
+            <div class="group relative aspect-square overflow-hidden bg-slate-200 cursor-pointer md:rounded-lg">
+                <img src="https://images.unsplash.com/photo-1518388656121-6a2c28695f2a?auto=format&fit=crop&w=600&q=80" 
+                     alt="Whale Breach" class="w-full h-full object-cover transition duration-500 group-hover:scale-110"/>
+                <div class="insta-overlay absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                    <div class="text-white flex gap-4 font-bold">
+                        <span class="flex items-center gap-1"><span class="material-symbols-outlined fill-current">favorite</span> 245</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Item 2: Boat Context -->
+            <div class="group relative aspect-square overflow-hidden bg-slate-200 cursor-pointer md:rounded-lg">
+                <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=600&q=80" 
+                     alt="Ocean View" class="w-full h-full object-cover transition duration-500 group-hover:scale-110"/>
+                <div class="insta-overlay absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                    <div class="text-white flex gap-4 font-bold">
+                        <span class="flex items-center gap-1"><span class="material-symbols-outlined fill-current">favorite</span> 189</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Item 3: Tail -->
+            <div class="group relative aspect-square overflow-hidden bg-slate-200 cursor-pointer md:rounded-lg">
+                <img src="https://images.unsplash.com/photo-1568430321285-8d5423190df2?auto=format&fit=crop&w=600&q=80" 
+                     alt="Whale Tail" class="w-full h-full object-cover transition duration-500 group-hover:scale-110"/>
+                <div class="insta-overlay absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                    <div class="text-white flex gap-4 font-bold">
+                        <span class="flex items-center gap-1"><span class="material-symbols-outlined fill-current">favorite</span> 312</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Item 4: Close up -->
+            <div class="group relative aspect-square overflow-hidden bg-slate-200 cursor-pointer md:rounded-lg">
+                <img src="https://images.unsplash.com/photo-1582967788606-a171f1080ca8?auto=format&fit=crop&w=600&q=80" 
+                     alt="Ocean Surface" class="w-full h-full object-cover transition duration-500 group-hover:scale-110"/>
+                <div class="insta-overlay absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                    <div class="text-white flex gap-4 font-bold">
+                        <span class="flex items-center gap-1"><span class="material-symbols-outlined fill-current">favorite</span> 156</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
+
 <!-- Location Section -->
 <section class="relative py-24 bg-white" id="contact">
-<div class="container mx-auto px-4">
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-<div class="lg:col-span-4 space-y-8">
-<div>
-<h2 class="font-heading text-3xl font-extrabold text-slate-900">Find "The Whale Shack"</h2>
-<p class="text-slate-600 mt-4 leading-relaxed">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            <div class="lg:col-span-4 space-y-8">
+                <div>
+                    <h2 class="font-heading text-3xl font-extrabold text-slate-900">Find "The Whale Shack"</h2>
+                    <p class="text-slate-600 mt-4 leading-relaxed">
                         We are located in the New Harbour of Hermanus. Look for our distinctive <strong>blue and yellow building</strong> right at the water's edge.
                     </p>
-</div>
-<div class="bg-slate-50 p-6 rounded-xl border-l-4 border-brand-blue space-y-6 shadow-sm">
-<div class="flex items-start gap-4">
-<div class="bg-white p-2 rounded shadow-sm text-brand-blue">
-<span class="material-symbols-outlined">storefront</span>
-</div>
-<div>
-<h4 class="font-bold text-slate-800">The Whale Shack</h4>
-<p class="text-sm text-slate-600">New Harbour, Westcliff Road<br/>Hermanus, 7200</p>
-</div>
-</div>
-<div class="flex items-start gap-4">
-<div class="bg-white p-2 rounded shadow-sm text-brand-blue">
-<span class="material-symbols-outlined">pin_drop</span>
-</div>
-<div>
-<h4 class="font-bold text-slate-800">GPS Coordinates</h4>
-<p class="text-sm text-slate-600 font-mono">34° 26' 00" S <br/> 19° 13' 28" E</p>
-</div>
-</div>
-<div class="flex items-start gap-4">
-<div class="bg-white p-2 rounded shadow-sm text-brand-blue">
-<span class="material-symbols-outlined">phone</span>
-</div>
-<div>
-<h4 class="font-bold text-slate-800">Contact</h4>
-<p class="text-sm text-slate-600">+27 (0) 82 353 0550<br/>info@southernrightcharters.co.za</p>
-</div>
-</div>
-</div>
-<img alt="The Whale Shack" class="rounded-xl shadow-md w-full h-48 object-cover" src="https://placehold.co/800x450/004b85/FFFFFF?text=The+Whale+Shack"/>
-</div>
-<div class="lg:col-span-8">
-<div class="w-full h-[500px] rounded-2xl shadow-xl overflow-hidden" id="map"></div>
-</div>
-</div>
-</div>
+                </div>
+                
+                <div class="bg-slate-50 p-6 rounded-xl border-l-4 border-brand-blue space-y-6 shadow-sm">
+                    <div class="flex items-start gap-4">
+                        <div class="bg-white p-2 rounded shadow-sm text-brand-blue">
+                            <span class="material-symbols-outlined">storefront</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-800">The Whale Shack</h4>
+                            <p class="text-sm text-slate-600">New Harbour, Westcliff Road<br/>Hermanus, 7200</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="bg-white p-2 rounded shadow-sm text-brand-blue">
+                            <span class="material-symbols-outlined">pin_drop</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-800">GPS Coordinates</h4>
+                            <p class="text-sm text-slate-600 font-mono">34° 26' 00" S <br/> 19° 13' 28" E</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="bg-white p-2 rounded shadow-sm text-brand-blue">
+                            <span class="material-symbols-outlined">phone</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-800">Contact</h4>
+                            <p class="text-sm text-slate-600">+27 (0) 82 353 0550<br/>info@southernrightcharters.co.za</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <img src="https://images.unsplash.com/photo-1545558960-915494d6ea46?auto=format&fit=crop&w=800&q=80" 
+                     alt="New Harbour Hermanus" class="rounded-xl shadow-md w-full h-48 object-cover"/>
+            </div>
+            
+            <div class="lg:col-span-8">
+                <div id="map" class="w-full h-[500px] rounded-2xl shadow-xl overflow-hidden border border-slate-200"></div>
+            </div>
+        </div>
+    </div>
 </section>
+
 <!-- Footer -->
 <footer class="bg-slate-900 text-slate-400 py-16 border-t border-slate-800">
-<div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12 text-sm">
-<div class="md:col-span-2 space-y-4">
-<div class="flex items-center gap-2 mb-2">
-<div class="w-8 h-8 bg-brand-blue rounded-full flex items-center justify-center text-white">
-<span class="material-symbols-outlined text-lg">sailing</span>
-</div>
-<h5 class="text-white font-heading font-bold text-xl">Southern Right Charters</h5>
-</div>
-<p class="leading-relaxed max-w-sm">
+    <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12 text-sm">
+        <div class="md:col-span-2 space-y-4">
+            <div class="flex items-center gap-2 mb-2">
+                <div class="w-8 h-8 bg-brand-blue rounded-full flex items-center justify-center text-white">
+                    <span class="material-symbols-outlined text-lg">sailing</span>
+                </div>
+                <h5 class="text-white font-heading font-bold text-xl">Southern Right Charters</h5>
+            </div>
+            <p class="leading-relaxed max-w-sm">
                 A leading boat-based whale watching operator in South Africa. Dedicated to conservation, education, and providing a superior guest experience since 1999.
             </p>
-</div>
-<div>
-<h5 class="text-white font-bold text-lg mb-6 font-heading">Quick Links</h5>
-<ul class="space-y-3">
-<li><a class="hover:text-yellow-400 transition" href="#">Our Manifesto</a></li>
-<li><a class="hover:text-yellow-400 transition" href="#">Conservation</a></li>
-<li><a class="hover:text-yellow-400 transition" href="#">Rates & Schedule</a></li>
-<li><a class="hover:text-yellow-400 transition" href="#">Private Charters</a></li>
-</ul>
-</div>
-<div>
-<h5 class="text-white font-bold text-lg mb-6 font-heading">Certifications</h5>
-<div class="flex gap-4 opacity-70">
-<!-- Cert icons placeholders -->
-<div class="w-12 h-12 bg-white/10 rounded flex items-center justify-center text-xs text-center p-1">SAMSA</div>
-<div class="w-12 h-12 bg-white/10 rounded flex items-center justify-center text-xs text-center p-1">Blue Flag</div>
-</div>
-</div>
-</div>
-<div class="container mx-auto px-4 mt-16 pt-8 border-t border-slate-800 text-center text-xs text-slate-600">
+        </div>
+        <div>
+            <h5 class="text-white font-bold text-lg mb-6 font-heading">Quick Links</h5>
+            <ul class="space-y-3">
+                <li><a href="#" class="hover:text-yellow-400 transition">Our Manifesto</a></li>
+                <li><a href="#" class="hover:text-yellow-400 transition">Conservation</a></li>
+                <li><a href="#" class="hover:text-yellow-400 transition">Rates & Schedule</a></li>
+                <li><a href="#" class="hover:text-yellow-400 transition">Private Charters</a></li>
+            </ul>
+        </div>
+        <div>
+            <h5 class="text-white font-bold text-lg mb-6 font-heading">Certifications</h5>
+            <div class="flex gap-4 opacity-70">
+                <div class="w-12 h-12 bg-white/10 rounded flex items-center justify-center text-xs text-center p-1">SAMSA</div>
+                <div class="w-12 h-12 bg-white/10 rounded flex items-center justify-center text-xs text-center p-1">Blue Flag</div>
+            </div>
+        </div>
+    </div>
+    <div class="container mx-auto px-4 mt-16 pt-8 border-t border-slate-800 text-center text-xs text-slate-600">
         © 2025 Southern Right Charters. All rights reserved.
     </div>
 </footer>
+
 <script>
     // --- 1. Dynamic Schedule Logic ---
     const trips = [
@@ -443,7 +471,7 @@
             seasonal: true,
             desc: "A magical sunrise start. Perfect for photographers seeking calm waters and golden light.",
             status: "Seasonal (Sep-Nov)",
-            img: "https://placehold.co/800x450/FFCE00/000000?text=Sunrise+Trip"
+            img: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80" // Sunrise
         },
         {
             time: "09:00",
@@ -451,7 +479,7 @@
             seasonal: false,
             desc: "Our most popular departure. Generally offers calm sea conditions and excellent visibility.",
             status: "Available",
-            img: "https://placehold.co/800x450/004b85/FFFFFF?text=Morning+Trip"
+            img: "https://images.unsplash.com/photo-1583212292454-1fe6229603b7?auto=format&fit=crop&w=800&q=80" // Bright Ocean
         },
         {
             time: "12:00",
@@ -459,7 +487,7 @@
             seasonal: false,
             desc: "Experience the high sun illuminating the depths, often allowing you to see whales underwater.",
             status: "Filling Fast",
-            img: "https://placehold.co/800x450/0E7490/FFFFFF?text=Mid-Day+Sun"
+            img: "https://images.unsplash.com/photo-1468581264429-2548ef9eb732?auto=format&fit=crop&w=800&q=80" // Clear Water
         },
         {
             time: "15:00",
@@ -467,7 +495,7 @@
             seasonal: false,
             desc: "Enjoy the afternoon breeze. Often active surface behavior like breaching is observed.",
             status: "Available",
-            img: "https://placehold.co/800x450/004b85/FFFFFF?text=Afternoon+Activity"
+            img: "https://images.unsplash.com/photo-1518873890627-d4b177c06e51?auto=format&fit=crop&w=800&q=80" // Action/Breach
         },
         {
             time: "17:00",
@@ -475,7 +503,7 @@
             seasonal: true,
             desc: "A spectacular way to end the day. Watch the sunset over Walker Bay with the gentle giants.",
             status: "Seasonal (Sep-Dec)",
-            img: "https://placehold.co/800x450/FFCE00/000000?text=Sunset+Trip"
+            img: "https://images.unsplash.com/photo-1495616811223-4d98c6e9d869?auto=format&fit=crop&w=800&q=80" // Sunset
         }
     ];
 
@@ -537,63 +565,41 @@
     const dateOpts = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
     document.getElementById('current-date').innerText = new Date().toLocaleDateString('en-GB', dateOpts);
 
-    // --- 3. Google Maps ---
-    async function initMap() {
-        const { Map, InfoWindow } = await google.maps.importLibrary("maps");
-        const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
+    // --- 3. Leaflet Maps Logic (No API Key Required) ---
+    document.addEventListener("DOMContentLoaded", function() {
+        // Initialize Map centered on New Harbour Hermanus
+        const map = L.map('map').setView([-34.433889, 19.218889], 14);
 
-        // Coordinates for "The Whale Shack" New Harbour
-        const whaleShackPos = { lat: -34.4333, lng: 19.2244 }; 
+        // Add OpenStreetMap tiles (Free)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
 
-        const map = new Map(document.getElementById("map"), {
-            center: { lat: -34.425, lng: 19.230 }, // Slightly offset to show bay context
-            zoom: 14,
-            mapId: 'SRC_MAP_ID',
-            disableDefaultUI: true,
-            gestureHandling: 'cooperative'
-        });
-
-        // Custom Pin
-        const glyph = document.createElement("div");
-        glyph.innerHTML = '<span class="material-symbols-outlined text-white text-lg">sailing</span>';
+        // Add Custom Marker
+        const marker = L.marker([-34.433889, 19.218889]).addTo(map)
+            .bindPopup(`
+                <div class="text-center">
+                    <h3 class="font-bold text-slate-900">The Whale Shack</h3>
+                    <p class="text-sm text-slate-600">New Harbour, Hermanus</p>
+                    <p class="text-xs text-blue-600 font-bold mt-1">Check-in Here</p>
+                </div>
+            `)
+            .openPopup();
+            
+        // Add a "viewing cone" polygon to simulate Walker Bay viewing area
+        const latlngs = [
+            [-34.433889, 19.218889], // Harbour
+            [-34.460, 19.190], // Out to sea West
+            [-34.460, 19.250], // Out to sea East
+            [-34.420, 19.240]  // Coast
+        ];
         
-        const pin = new PinElement({
-            glyph: glyph,
-            background: "#004b85",
-            borderColor: "#ffffff",
-            scale: 1.3
-        });
+        L.polygon(latlngs, {color: '#004b85', fillOpacity: 0.1}).addTo(map);
+    });
 
-        const marker = new AdvancedMarkerElement({
-            map,
-            position: whaleShackPos,
-            content: pin.element,
-            title: "Southern Right Charters"
-        });
-
-        const iwContent = document.createElement("div");
-        iwContent.className = "p-2 min-w-[200px]";
-        iwContent.innerHTML = `
-            <h3 class="font-bold text-slate-900 mb-1">The Whale Shack</h3>
-            <p class="text-sm text-slate-600">Check-in here.</p>
-            <p class="text-xs text-brand-blue font-bold mt-2">New Harbour</p>
-        `;
-
-        const infoWindow = new InfoWindow({
-            content: iwContent,
-        });
-
-        marker.addListener("click", () => {
-            infoWindow.open(map, marker);
-        });
-        
-        infoWindow.open(map, marker);
-    }
-
-    // Init
+    // Init Schedule
     renderSchedule();
     loadTrip(1); // Load Morning Trip initially
-    initMap();
 
 </script>
 </body>
