@@ -1,252 +1,294 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+
+<html class="scroll-smooth" lang="en">
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Southern Right Charters | Whale Watching Collective</title>
-    <meta content="South Africa's premier whale watching experiences. Choose between classic tours in Hermanus or expedition-style adventures in Yzerfontein." name="description"/>
+    <title>Southern Right Charters | The Collective</title>
+    <meta content="Two distinct whale watching experiences in South Africa. Classic tours in Hermanus and expeditions in Yzerfontein." name="description"/>
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Fonts & Icons -->
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+    
     <!-- Leaflet Maps -->
     <link crossorigin="" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" rel="stylesheet"/>
     <script crossorigin="" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
     <style>
-        body { font-family: 'Open Sans', sans-serif; }
-        h1, h2, h3, h4, h5, .font-heading { font-family: 'Montserrat', sans-serif; }
+        body { font-family: 'Outfit', sans-serif; }
+        h1, h2, h3, .font-serif { font-family: 'Playfair Display', serif; }
         
-        .text-shadow { text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
-        
-        /* Video Card Hover Effect */
-        .video-card video {
+        /* Video Background Transition */
+        .hero-video {
+            transition: opacity 1.2s ease-in-out;
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
             object-fit: cover;
-            transition: transform 0.7s;
-        }
-        .video-card:hover video {
-            transform: scale(1.05);
+            z-index: 0;
         }
         
-        #hero-video {
-            transition: opacity 1s ease-in-out;
+        /* Smooth Text Transition */
+        .fade-content {
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-out;
         }
+        
+        /* Custom Scrollbar */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Map Popup Styling */
+        .leaflet-popup-content-wrapper { 
+            border-radius: 0.5rem; 
+            padding: 0;
+            overflow: hidden;
+        }
+        .leaflet-popup-content { margin: 0; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased selection:bg-yellow-200 selection:text-slate-900 overflow-x-hidden">
+<body class="bg-slate-950 text-slate-100 antialiased overflow-x-hidden selection:bg-cyan-500 selection:text-white">
 
 <!-- Navigation -->
-<nav class="fixed top-0 w-full z-50 transition-all duration-300 bg-black/20 backdrop-blur-md border-b border-white/10" id="navbar">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<nav class="fixed top-0 w-full z-50 bg-gradient-to-b from-black/90 via-black/50 to-transparent transition-all duration-300" id="navbar">
+    <div class="max-w-7xl mx-auto px-6">
         <div class="flex justify-between items-center h-24">
-            <!-- Logo Area -->
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white backdrop-blur">
-                    <span class="material-symbols-outlined text-2xl">sailing</span>
+            <!-- Brand -->
+            <div class="flex items-center gap-4 group cursor-pointer" onclick="window.scrollTo(0,0)">
+                <div class="w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 group-hover:border-cyan-400 transition">
+                    <span class="material-symbols-outlined text-2xl text-cyan-400">sailing</span>
                 </div>
-                <div class="flex flex-col text-white">
-                    <span class="font-heading font-extrabold text-xl tracking-tight leading-none">SOUTHERN RIGHT</span>
-                    <span class="font-heading font-light text-xs tracking-[0.2em] opacity-80 leading-none mt-1">CHARTERS & EXPEDITIONS</span>
+                <div>
+                    <span class="block font-bold text-xl tracking-tight text-white leading-none">SOUTHERN RIGHT</span>
+                    <span class="block text-[10px] uppercase tracking-[0.3em] text-cyan-400 font-bold mt-1">Collective</span>
                 </div>
             </div>
             <!-- Desktop Menu -->
-            <div class="hidden md:flex space-x-8 items-center text-white/90 text-sm font-bold tracking-wide uppercase">
-                <button class="hover:text-yellow-400 transition" onclick="switchLocation('hermanus')">Hermanus</button>
-                <button class="hover:text-yellow-400 transition" onclick="switchLocation('yzerfontein')">Yzerfontein</button>
-                <a class="hover:text-yellow-400 transition" href="#schedule">Rates</a>
-                <a class="hover:text-yellow-400 transition" href="#gallery">Gallery</a>
-                <button class="bg-yellow-400 hover:bg-yellow-300 text-slate-900 px-6 py-2.5 rounded-full font-bold shadow-lg transform hover:-translate-y-0.5 transition-all">
-                    Book Now
+            <div class="hidden md:flex items-center gap-10 text-xs font-bold uppercase tracking-widest">
+                <button class="hover:text-cyan-400 transition relative group" onclick="switchLocation('hermanus')">
+                    Hermanus
+                    <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-cyan-400 transition-all group-hover:w-full"></span>
                 </button>
+                <button class="hover:text-yellow-400 transition relative group" onclick="switchLocation('yzerfontein')">
+                    Yzerfontein
+                    <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-yellow-400 transition-all group-hover:w-full"></span>
+                </button>
+                <a class="bg-white text-slate-900 px-8 py-3 rounded-full hover:bg-cyan-400 transition shadow-[0_0_15px_rgba(255,255,255,0.3)] hover:shadow-[0_0_20px_rgba(34,211,238,0.6)]" href="#book">
+                    Book Now
+                </a>
             </div>
         </div>
     </div>
 </nav>
 
-<!-- Hero Section (Video Background) -->
-<header class="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden bg-slate-900">
-    <!-- Dynamic Video Background -->
-    <div class="absolute inset-0 z-0">
-        <video autoplay muted loop playsinline id="hero-video" class="w-full h-full object-cover opacity-60" poster="https://images.unsplash.com/photo-1454991727061-be514faf41f9?auto=format&fit=crop&w=1920&q=80">
-            <!-- Default to Hermanus video -->
-            <source src="https://player.vimeo.com/external/362577749.sd.mp4?s=d762e5975d036082440076a02b66236307a09277&profile_id=164&oauth2_token_id=57447761" type="video/mp4">
-        </video>
-        <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-slate-900/50"></div>
-    </div>
+<!-- Hero Section -->
+<header class="relative h-screen flex items-center justify-center overflow-hidden">
+    <!-- Video 1: Hermanus (Classic, Southern Right) -->
+    <video autoplay="" class="hero-video opacity-100" id="vid-hermanus" loop="" muted="" playsinline="" poster="https://images.unsplash.com/photo-1568430462989-44163eb1752f?q=80&w=1920">
+        <!-- Using a reliable generic ocean/whale stock clip -->
+        <source src="https://player.vimeo.com/external/362577749.sd.mp4?s=d762e5975d036082440076a02b66236307a09277&profile_id=164&oauth2_token_id=57447761" type="video/mp4"/>
+    </video>
+    <!-- Video 2: Yzerfontein (Action, Humpback, Speed) -->
+    <video class="hero-video opacity-0" id="vid-yzer" loop="" muted="" playsinline="" poster="https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=1920">
+        <!-- Faster paced water/boat action -->
+        <source src="https://player.vimeo.com/external/480653896.sd.mp4?s=15022645605d34934e70e9323c2bd4337039a7b9&profile_id=164&oauth2_token_id=57447761" type="video/mp4"/>
+    </video>
+    
+    <!-- Gradient Overlay -->
+    <div class="absolute inset-0 bg-slate-900/40 bg-gradient-to-t from-slate-950 via-slate-950/20 to-slate-950/60 pointer-events-none"></div>
     
     <!-- Content -->
-    <div class="relative z-10 container mx-auto px-4 text-center mt-16">
-        <!-- Location Switcher (The Core Interaction) -->
-        <div class="inline-flex bg-white/10 backdrop-blur-md p-1 rounded-full border border-white/20 mb-8 shadow-2xl">
-            <button id="btn-hermanus" onclick="switchLocation('hermanus')" class="px-8 py-3 rounded-full text-sm font-bold uppercase tracking-wider transition-all duration-300 bg-white text-slate-900 shadow-lg">
-                Hermanus
-            </button>
-            <button id="btn-yzerfontein" onclick="switchLocation('yzerfontein')" class="px-8 py-3 rounded-full text-sm font-bold uppercase tracking-wider transition-all duration-300 text-white hover:bg-white/10">
-                Yzerfontein
-            </button>
+    <div class="relative z-10 container mx-auto px-6 h-full flex flex-col justify-center">
+        <!-- Interactive Toggle Switch -->
+        <div class="flex justify-center mb-12">
+            <div class="bg-white/10 backdrop-blur-md border border-white/10 rounded-full p-1.5 flex shadow-2xl">
+                <button class="px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-500 bg-cyan-500 text-slate-950 shadow-lg" id="btn-hermanus" onclick="switchLocation('hermanus')">
+                    Hermanus
+                </button>
+                <button class="px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-500 text-white hover:bg-white/5" id="btn-yzer" onclick="switchLocation('yzerfontein')">
+                    Yzerfontein
+                </button>
+            </div>
         </div>
 
-        <!-- Dynamic Text -->
-        <div id="hero-text-container" class="transition-opacity duration-500">
-            <h1 id="hero-title" class="font-heading text-5xl md:text-7xl lg:text-8xl font-black text-white leading-tight mb-6 text-shadow">
-                GIANTS OF<br> WALKER BAY
+        <!-- Text Content -->
+        <div class="text-center max-w-5xl mx-auto fade-content" id="hero-content">
+            <span class="inline-block py-1 px-3 border border-white/30 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] mb-6 backdrop-blur-sm" id="hero-badge">
+                Permit Holder Since 1999
+            </span>
+            <h1 class="font-serif text-6xl md:text-8xl lg:text-9xl text-white leading-[0.9] mb-8 drop-shadow-2xl">
+                <span class="block" id="hero-title-1">Walker Bay</span>
+                <span class="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-200 to-blue-500" id="hero-title-2">Sanctuary</span>
             </h1>
-            <p id="hero-subtitle" class="text-xl md:text-2xl text-slate-200 font-light max-w-2xl mx-auto mb-10 leading-relaxed">
-                Join us aboard the <strong>Miroshca</strong> for the world's finest boat-based whale watching.
+            <p class="text-lg md:text-2xl text-slate-200 font-light max-w-2xl mx-auto leading-relaxed drop-shadow-md" id="hero-desc">
+                Join us aboard the <strong>Miroshca</strong> for the world's finest boat-based whale watching in the heart of the Overberg.
             </p>
         </div>
 
-        <!-- Quick Stats Row -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto text-white/90">
-            <div class="glass-panel bg-white/5 border border-white/10 p-4 rounded-xl backdrop-blur-sm">
-                <div class="text-yellow-400 font-bold text-xs uppercase tracking-widest mb-1">Season</div>
-                <div id="stat-season" class="font-heading font-bold text-lg">June - Dec</div>
+        <!-- Quick Stats Grid -->
+        <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-4xl mx-auto text-center border-t border-white/10 pt-8 fade-content" id="hero-stats">
+            <div>
+                <div class="text-cyan-400 font-bold text-2xl md:text-3xl font-serif" id="stat-season">Jun - Dec</div>
+                <div class="text-[10px] text-slate-400 uppercase tracking-widest mt-1">Season</div>
             </div>
-            <div class="glass-panel bg-white/5 border border-white/10 p-4 rounded-xl backdrop-blur-sm">
-                <div class="text-yellow-400 font-bold text-xs uppercase tracking-widest mb-1">Focus</div>
-                <div id="stat-species" class="font-heading font-bold text-lg">Southern Right</div>
+            <div>
+                <div class="text-cyan-400 font-bold text-2xl md:text-3xl font-serif" id="stat-species">Right Whale</div>
+                <div class="text-[10px] text-slate-400 uppercase tracking-widest mt-1">Focus</div>
             </div>
-            <div class="glass-panel bg-white/5 border border-white/10 p-4 rounded-xl backdrop-blur-sm">
-                <div class="text-yellow-400 font-bold text-xs uppercase tracking-widest mb-1">Vessel</div>
-                <div id="stat-vessel" class="font-heading font-bold text-lg">Catamaran</div>
+            <div>
+                <div class="text-cyan-400 font-bold text-2xl md:text-3xl font-serif" id="stat-boat">Catamaran</div>
+                <div class="text-[10px] text-slate-400 uppercase tracking-widest mt-1">Vessel</div>
             </div>
-            <div class="glass-panel bg-white/5 border border-white/10 p-4 rounded-xl backdrop-blur-sm">
-                <div class="text-yellow-400 font-bold text-xs uppercase tracking-widest mb-1">Vibe</div>
-                <div id="stat-vibe" class="font-heading font-bold text-lg">Classic Tour</div>
+            <div>
+                <div class="text-cyan-400 font-bold text-2xl md:text-3xl font-serif" id="stat-price">R 1,440</div>
+                <div class="text-[10px] text-slate-400 uppercase tracking-widest mt-1">From</div>
             </div>
         </div>
     </div>
+    
+    <!-- Scroll Hint -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-white/30">
+        <span class="material-symbols-outlined">keyboard_arrow_down</span>
+    </div>
 </header>
 
-<!-- "Reels" Style Gallery (Dynamic Video Cards) -->
-<section class="py-20 bg-slate-900 overflow-hidden" id="gallery">
-    <div class="container mx-auto px-4">
-        <div class="flex justify-between items-end mb-12">
-            <div>
-                <span class="text-yellow-400 font-bold tracking-widest text-sm uppercase">Live from the Ocean</span>
-                <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-white mt-2">Latest Sightings</h2>
-            </div>
-            <a href="https://instagram.com/src_whalewatching" target="_blank" class="text-white/60 hover:text-white flex items-center gap-2 transition text-sm font-bold uppercase tracking-wide">
-                <span class="material-symbols-outlined">photo_camera</span> @src_whalewatching
-            </a>
-        </div>
-        
-        <!-- Scrollable Reel Container -->
-        <div id="reels-container" class="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory hide-scrollbar">
-            <!-- Card 1 -->
-            <div class="flex-shrink-0 w-72 h-[450px] bg-slate-800 rounded-2xl overflow-hidden relative shadow-2xl video-card snap-center group cursor-pointer border border-white/10">
-                <img class="w-full h-full object-cover absolute inset-0" src="https://images.unsplash.com/photo-1568430321285-8d5423190df2?auto=format&fit=crop&w=600&q=80" alt="Whale Breach">
-                <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/80"></div>
-                <div class="absolute bottom-6 left-6 text-white">
-                    <div class="flex items-center gap-2 mb-2">
-                        <span class="bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">New</span>
-                        <span class="text-xs font-mono opacity-80">2 hours ago</span>
+<!-- Experience Detail Section -->
+<section class="py-32 bg-slate-950 relative" id="details">
+    <!-- Decor -->
+    <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-slate-900 to-transparent opacity-50"></div>
+    
+    <div class="container mx-auto px-6 relative z-10">
+        <div class="flex flex-col lg:flex-row items-center gap-20">
+            <!-- Dynamic Image Grid -->
+            <div class="lg:w-1/2 grid grid-cols-2 gap-4" id="image-grid">
+                <!-- Img 1 -->
+                <div class="space-y-4 mt-12">
+                    <div class="relative h-64 rounded-2xl overflow-hidden shadow-2xl group">
+                        <img alt="Whale" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" id="grid-img-1" src="https://images.unsplash.com/photo-1518388656121-6a2c28695f2a?q=80&w=600"/>
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition"></div>
                     </div>
-                    <p class="font-bold leading-tight">Breaching right next to the boat!</p>
-                </div>
-            </div>
-            <!-- Card 2 -->
-            <div class="flex-shrink-0 w-72 h-[450px] bg-slate-800 rounded-2xl overflow-hidden relative shadow-2xl video-card snap-center group cursor-pointer border border-white/10">
-                <img class="w-full h-full object-cover absolute inset-0" src="https://images.unsplash.com/photo-1518388656121-6a2c28695f2a?auto=format&fit=crop&w=600&q=80" alt="Humpback Supergroup">
-                <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/80"></div>
-                <div class="absolute bottom-6 left-6 text-white">
-                    <div class="flex items-center gap-2 mb-2">
-                        <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">Yzerfontein</span>
+                    <div class="relative h-40 rounded-2xl overflow-hidden shadow-2xl group">
+                        <img alt="Ocean" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" id="grid-img-2" src="https://images.unsplash.com/photo-1622359676757-4bf748366024?q=80&w=600"/>
                     </div>
-                    <p class="font-bold leading-tight">Supergroup spotted! Over 60 whales.</p>
                 </div>
-            </div>
-            <!-- Card 3 -->
-            <div class="flex-shrink-0 w-72 h-[450px] bg-slate-800 rounded-2xl overflow-hidden relative shadow-2xl video-card snap-center group cursor-pointer border border-white/10">
-                <img class="w-full h-full object-cover absolute inset-0" src="https://images.unsplash.com/photo-1575826620593-517df474d28d?auto=format&fit=crop&w=600&q=80" alt="Dolphins">
-                <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/80"></div>
-                <div class="absolute bottom-6 left-6 text-white">
-                    <p class="font-bold leading-tight">Bonus: Hundreds of common dolphins joining the ride.</p>
-                </div>
-            </div>
-            <!-- Card 4 -->
-            <div class="flex-shrink-0 w-72 h-[450px] bg-slate-800 rounded-2xl overflow-hidden relative shadow-2xl video-card snap-center group cursor-pointer border border-white/10">
-                <img class="w-full h-full object-cover absolute inset-0" src="https://images.unsplash.com/photo-1495616811223-4d98c6e9d869?auto=format&fit=crop&w=600&q=80" alt="Sunset Tail">
-                <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/80"></div>
-                <div class="absolute bottom-6 left-6 text-white">
-                    <div class="flex items-center gap-2 mb-2">
-                        <span class="bg-yellow-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">Magic</span>
+                <!-- Img 2 -->
+                <div class="space-y-4">
+                    <div class="relative h-40 rounded-2xl overflow-hidden shadow-2xl group">
+                        <img alt="Boat" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" id="grid-img-3" src="https://images.unsplash.com/photo-1544253327-9a6509f63583?q=80&w=600"/>
                     </div>
-                    <p class="font-bold leading-tight">Golden hour with a gentle giant.</p>
+                    <div class="relative h-64 rounded-2xl overflow-hidden shadow-2xl group">
+                        <img alt="Whale Tail" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" id="grid-img-4" src="https://images.unsplash.com/photo-1560265236-cb9c3d42050e?q=80&w=600"/>
+                    </div>
                 </div>
+            </div>
+            
+            <!-- Narrative Text -->
+            <div class="lg:w-1/2">
+                <span class="text-cyan-500 font-bold tracking-widest text-xs uppercase mb-4 block" id="detail-tag">The Classic Experience</span>
+                <h2 class="font-serif text-5xl md:text-6xl font-bold text-white mb-8 leading-tight" id="detail-title">
+                    Observe, Don't Disturb.
+                </h2>
+                <div class="space-y-6 text-lg text-slate-400 font-light leading-relaxed" id="detail-text">
+                    <p>
+                        Since 1999, we have operated with a simple philosophy: we are guests in their home. Our trips in Walker Bay offer a stable, family-friendly platform to witness the Southern Right Whales as they return to our shallow waters to mate and calve.
+                    </p>
+                    <p>
+                        Our catamaran, <strong>Miroshca</strong>, is designed for comfort, offering 360-degree views and a "silent running" mode that allows the whales to approach us on their own terms.
+                    </p>
+                </div>
+                
+                <!-- Features List -->
+                <ul class="mt-10 space-y-4" id="detail-features">
+                    <li class="flex items-center gap-3 text-slate-300">
+                        <span class="material-symbols-outlined text-cyan-500">check_circle</span>
+                        <span>Stable Catamaran (No seasickness)</span>
+                    </li>
+                    <li class="flex items-center gap-3 text-slate-300">
+                        <span class="material-symbols-outlined text-cyan-500">check_circle</span>
+                        <span>Expert Whale Specialist Guides</span>
+                    </li>
+                    <li class="flex items-center gap-3 text-slate-300">
+                        <span class="material-symbols-outlined text-cyan-500">check_circle</span>
+                        <span>Family Friendly (All ages welcome)</span>
+                    </li>
+                </ul>
+                
+                <a class="inline-flex items-center gap-2 mt-10 text-white border-b border-cyan-500 pb-1 hover:text-cyan-400 transition font-bold uppercase tracking-widest text-sm" href="#book">
+                    View Rates & Availability <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </a>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Comparison & Details Section -->
-<section class="py-24 bg-white" id="schedule">
-    <div class="container mx-auto px-4">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-            <!-- Dynamic Info Side -->
-            <div id="info-panel" class="space-y-8">
-                <div>
-                    <h2 id="detail-title" class="font-heading text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">Hermanus Whale Tours</h2>
-                    <p id="detail-desc" class="text-lg text-slate-600 leading-relaxed">
-                        Our classic tour offering. Perfect for families and those wanting to see the gentle Southern Right Whales that come to breed in the shallow waters of Walker Bay.
-                    </p>
-                </div>
-                
-                <!-- Key Features Grid -->
-                <div class="grid grid-cols-2 gap-6">
-                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-100">
-                        <div class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-2">The Boat</div>
-                        <div class="font-bold text-slate-900 text-lg flex items-center gap-2">
-                            <span class="material-symbols-outlined text-blue-600">directions_boat</span>
-                            <span id="detail-boat">MV Miroshca</span>
-                        </div>
-                        <p id="detail-boat-desc" class="text-xs text-slate-500 mt-1">Luxury Catamaran, Stable & Dry</p>
-                    </div>
-                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-100">
-                        <div class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-2">Pricing</div>
-                        <div class="font-bold text-slate-900 text-lg flex items-center gap-2">
-                            <span class="material-symbols-outlined text-green-600">payments</span>
-                            <span id="detail-price">R 1,440 pp</span>
-                        </div>
-                        <p id="detail-price-desc" class="text-xs text-slate-500 mt-1">Children R720 (Under 12)</p>
-                    </div>
-                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-100">
-                        <div class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-2">Duration</div>
-                        <div class="font-bold text-slate-900 text-lg flex items-center gap-2">
-                            <span class="material-symbols-outlined text-orange-600">schedule</span>
-                            <span id="detail-duration">2 Hours</span>
-                        </div>
-                    </div>
-                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-100">
-                        <div class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-2">Experience</div>
-                        <div class="font-bold text-slate-900 text-lg flex items-center gap-2">
-                            <span class="material-symbols-outlined text-purple-600">verified</span>
-                            <span id="detail-type">Classic Tour</span>
-                        </div>
+<!-- Dual Map & Booking Section -->
+<section class="py-24 bg-white text-slate-900" id="book">
+    <div class="container mx-auto px-6">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="font-serif text-4xl md:text-5xl font-bold mb-4">Plan Your Journey</h2>
+            <p class="text-slate-600">Choose your destination. We operate from two distinct harbours along the Western Cape coastline.</p>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Hermanus Card -->
+            <div class="bg-slate-50 rounded-3xl overflow-hidden border border-slate-200 shadow-xl transition hover:shadow-2xl flex flex-col">
+                <div class="h-64 relative">
+                    <div class="w-full h-full z-0" id="map-hermanus"></div>
+                    <div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-slate-900 z-[400] shadow-sm">
+                        Walker Bay
                     </div>
                 </div>
-
-                <!-- Book Button -->
-                <button id="detail-cta" class="w-full bg-slate-900 hover:bg-slate-800 text-white py-4 rounded-xl font-bold shadow-lg transition flex items-center justify-center gap-3 text-lg group">
-                    <span>Book Hermanus Tour</span>
-                    <span class="material-symbols-outlined group-hover:translate-x-1 transition">arrow_forward</span>
-                </button>
+                <div class="p-8 flex-1 flex flex-col">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="font-serif text-3xl font-bold text-slate-900">Hermanus</h3>
+                            <p class="text-sm text-slate-500 mt-1">Southern Right Charters</p>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-2xl font-bold text-cyan-700">R 1,440</div>
+                            <div class="text-xs text-slate-400 uppercase font-bold">Per Adult</div>
+                        </div>
+                    </div>
+                    <ul class="space-y-3 mb-8 text-sm text-slate-600">
+                        <li class="flex gap-3"><span class="material-symbols-outlined text-cyan-600 text-lg">calendar_month</span> June - December</li>
+                        <li class="flex gap-3"><span class="material-symbols-outlined text-cyan-600 text-lg">schedule</span> 2 Hour Tours (09:00, 12:00, 15:00)</li>
+                        <li class="flex gap-3"><span class="material-symbols-outlined text-cyan-600 text-lg">directions_boat</span> Catamaran "Miroshca"</li>
+                    </ul>
+                    <a class="mt-auto w-full block text-center bg-slate-900 text-white py-4 rounded-xl font-bold hover:bg-cyan-700 transition" href="https://www.southernrightcharters.co.za/" target="_blank">
+                        Book Hermanus Tour
+                    </a>
+                </div>
             </div>
 
-            <!-- Dynamic Map Side -->
-            <div class="h-[600px] w-full bg-slate-100 rounded-3xl overflow-hidden shadow-2xl relative border-4 border-white">
-                <div id="map" class="w-full h-full"></div>
-                <!-- Overlay Info -->
-                <div class="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-md p-4 rounded-xl border border-slate-200 shadow-lg z-[500]">
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center">
-                            <span class="material-symbols-outlined text-2xl">location_on</span>
-                        </div>
+            <!-- Yzerfontein Card -->
+            <div class="bg-slate-50 rounded-3xl overflow-hidden border border-slate-200 shadow-xl transition hover:shadow-2xl flex flex-col">
+                <div class="h-64 relative">
+                    <div class="w-full h-full z-0" id="map-yzer"></div>
+                    <div class="absolute top-4 left-4 bg-yellow-400/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-slate-900 z-[400] shadow-sm">
+                        West Coast
+                    </div>
+                </div>
+                <div class="p-8 flex-1 flex flex-col">
+                    <div class="flex justify-between items-start mb-4">
                         <div>
-                            <h4 id="map-location-title" class="font-bold text-slate-900">New Harbour, Hermanus</h4>
-                            <p id="map-coords" class="text-xs text-slate-500 font-mono mt-1">34° 26' 00" S | 19° 13' 28" E</p>
+                            <h3 class="font-serif text-3xl font-bold text-slate-900">Yzerfontein</h3>
+                            <p class="text-sm text-slate-500 mt-1">Whale Expedition SA</p>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-2xl font-bold text-yellow-600">R 5,700</div>
+                            <div class="text-xs text-slate-400 uppercase font-bold">Per Person</div>
                         </div>
                     </div>
+                    <ul class="space-y-3 mb-8 text-sm text-slate-600">
+                        <li class="flex gap-3"><span class="material-symbols-outlined text-yellow-600 text-lg">calendar_month</span> Nov - March (Summer)</li>
+                        <li class="flex gap-3"><span class="material-symbols-outlined text-yellow-600 text-lg">schedule</span> Full Day Expedition (6-8 Hrs)</li>
+                        <li class="flex gap-3"><span class="material-symbols-outlined text-yellow-600 text-lg">speed</span> 12-Seater High-Speed RIB</li>
+                    </ul>
+                    <a class="mt-auto w-full block text-center bg-slate-900 text-white py-4 rounded-xl font-bold hover:bg-yellow-600 transition" href="https://whaleexpedition.co.za/" target="_blank">
+                        Book Yzerfontein Expedition
+                    </a>
                 </div>
             </div>
         </div>
@@ -254,153 +296,189 @@
 </section>
 
 <!-- Footer -->
-<footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
-    <div class="container mx-auto px-4 text-center">
-        <div class="flex justify-center items-center gap-3 mb-6">
-            <span class="material-symbols-outlined text-3xl text-white">sailing</span>
-            <span class="text-2xl font-bold text-white tracking-tight">SOUTHERN RIGHT CHARTERS</span>
+<footer class="bg-black text-slate-400 py-16 border-t border-slate-900">
+    <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
+        <div class="flex items-center gap-4">
+            <div class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center">
+                <span class="material-symbols-outlined text-white">sailing</span>
+            </div>
+            <span class="font-bold text-white tracking-widest uppercase">Southern Right Charters</span>
         </div>
-        <p class="text-sm max-w-md mx-auto mb-8">
-            Operating responsibly since 1999. Licensed permit holders for Boat Based Whale Watching in South Africa.
-        </p>
-        <div class="flex justify-center gap-6 text-sm font-bold uppercase tracking-wider mb-8">
-            <a href="#" class="hover:text-white transition">Hermanus</a>
-            <a href="#" class="hover:text-white transition">Yzerfontein</a>
-            <a href="#" class="hover:text-white transition">Contact</a>
+        <div class="flex gap-8 text-sm font-bold uppercase tracking-widest">
+            <a class="hover:text-white transition" href="#">Home</a>
+            <a class="hover:text-white transition" href="#details">Experience</a>
+            <a class="hover:text-white transition" href="https://instagram.com/src_whalewatching">Instagram</a>
         </div>
         <div class="text-xs opacity-50">
-            © 2025 Southern Right Charters & Whale Expedition SA. All rights reserved.
+            © 2025 Southern Right Charters.
         </div>
     </div>
 </footer>
 
-<!-- JavaScript Application Logic -->
 <script>
-        const locations = {
-            hermanus: {
-                themeColor: '#004b85',
-                video: "https://player.vimeo.com/external/362577749.sd.mp4?s=d762e5975d036082440076a02b66236307a09277&profile_id=164&oauth2_token_id=57447761",
-                title: "GIANTS OF<br> WALKER BAY",
-                subtitle: "Join us aboard the <strong>Miroshca</strong> for the world's finest boat-based whale watching.",
-                stats: { season: "June - Dec", species: "Southern Right", vessel: "Catamaran", vibe: "Classic Tour" },
-                details: {
-                    title: "Hermanus Whale Tours",
-                    desc: "Our classic tour offering. Perfect for families and those wanting to see the gentle Southern Right Whales that come to breed in the shallow waters of Walker Bay.",
-                    boat: "MV Miroshca",
-                    boatDesc: "Luxury Catamaran, Stable & Dry",
-                    price: "R 1,440 pp",
-                    priceDesc: "Children R720 (Under 12)",
-                    duration: "2 Hours",
-                    type: "Classic Tour",
-                    cta: "Book Hermanus Tour"
-                },
-                map: {
-                    coords: [-34.433889, 19.218889],
-                    title: "New Harbour, Hermanus",
-                    zoom: 14
-                }
-            },
-            yzerfontein: {
-                themeColor: '#0e7490',
-                video: "https://player.vimeo.com/external/480653896.sd.mp4?s=15022645605d34934e70e9323c2bd4337039a7b9&profile_id=164&oauth2_token_id=57447761",
-                title: "WEST COAST<br> EXPEDITIONS",
-                subtitle: "Experience the adrenaline of Humpback <strong>Supergroups</strong> on our high-performance RIB.",
-                stats: { season: "Nov - March", species: "Humpback", vessel: "High-Speed RIB", vibe: "Expedition" },
-                details: {
-                    title: "Whale Expedition SA",
-                    desc: "An immersive, expedition-style adventure launching from Yzerfontein. We search for massive 'Supergroups' of feeding Humpback whales. A specialized experience for nature enthusiasts.",
-                    boat: "The Meganova",
-                    boatDesc: "12-Seater RIB (Rigid Inflatable)",
-                    price: "R 5,700 pp",
-                    priceDesc: "Full Day Expedition (Incl. Meals)",
-                    duration: "6 - 8 Hours",
-                    type: "Expedition",
-                    cta: "Book Yzerfontein Expedition"
-                },
-                map: {
-                    coords: [-33.3430, 18.1620],
-                    title: "Yzerfontein Harbour",
-                    zoom: 13
-                }
+    // --- Configuration Data ---
+    const content = {
+        hermanus: {
+            title1: "Walker Bay",
+            title2: "Sanctuary",
+            desc: "Join us aboard the Miroshca for the world's finest boat-based whale watching in the heart of the Overberg.",
+            badge: "Permit Holder Since 1999",
+            season: "Jun - Dec",
+            species: "Right Whale",
+            boat: "Catamaran",
+            price: "R 1,440",
+            colors: { text: "text-cyan-400", bg: "bg-cyan-500", gradient: "from-cyan-200 to-blue-500" },
+            detail: {
+                tag: "The Classic Experience",
+                title: "Observe, Don't Disturb.",
+                text: `<p>Since 1999, we have operated with a simple philosophy: we are guests in their home. Our trips in Walker Bay offer a stable, family-friendly platform to witness the Southern Right Whales as they return to our shallow waters to mate and calve.</p>
+                       <p>Our catamaran, <strong>Miroshca</strong>, is designed for comfort, offering 360-degree views and a "silent running" mode that allows the whales to approach us on their own terms.</p>`,
+                features: [
+                    "Stable Catamaran (No seasickness)",
+                    "Expert Whale Specialist Guides",
+                    "Family Friendly (All ages welcome)"
+                ],
+                images: [
+                    "https://images.unsplash.com/photo-1518388656121-6a2c28695f2a?q=80&w=600", // Whale Breach
+                    "https://images.unsplash.com/photo-1622359676757-4bf748366024?q=80&w=600", // Ocean
+                    "https://images.unsplash.com/photo-1544253327-9a6509f63583?q=80&w=600", // Boat
+                    "https://images.unsplash.com/photo-1560265236-cb9c3d42050e?q=80&w=600"  // Tail
+                ]
             }
-        };
-
-        let currentLoc = 'hermanus';
-        let mapObj = null;
-        let markerObj = null;
-
-        function switchLocation(locKey) {
-            currentLoc = locKey;
-            const data = locations[locKey];
-            
-            // UI Toggle
-            const btnH = document.getElementById('btn-hermanus');
-            const btnY = document.getElementById('btn-yzerfontein');
-            
-            if(locKey === 'hermanus') {
-                btnH.className = "px-8 py-3 rounded-full text-sm font-bold uppercase tracking-wider transition-all duration-300 bg-white text-slate-900 shadow-lg scale-105";
-                btnY.className = "px-8 py-3 rounded-full text-sm font-bold uppercase tracking-wider transition-all duration-300 text-white hover:bg-white/10";
-            } else {
-                btnY.className = "px-8 py-3 rounded-full text-sm font-bold uppercase tracking-wider transition-all duration-300 bg-cyan-600 text-white shadow-lg scale-105";
-                btnH.className = "px-8 py-3 rounded-full text-sm font-bold uppercase tracking-wider transition-all duration-300 text-white hover:bg-white/10";
-            }
-
-            // Hero Text Fade
-            const heroTextDiv = document.getElementById('hero-text-container');
-            heroTextDiv.style.opacity = '0';
-            
-            setTimeout(() => {
-                document.getElementById('hero-title').innerHTML = data.title;
-                document.getElementById('hero-subtitle').innerHTML = data.subtitle;
-                document.getElementById('stat-season').innerText = data.stats.season;
-                document.getElementById('stat-species').innerText = data.stats.species;
-                document.getElementById('stat-vessel').innerText = data.stats.vessel;
-                document.getElementById('stat-vibe').innerText = data.stats.vibe;
-                heroTextDiv.style.opacity = '1';
-            }, 300);
-
-            // Video Fade
-            const video = document.getElementById('hero-video');
-            video.style.opacity = '0';
-            setTimeout(() => {
-                video.src = data.video;
-                video.play();
-                video.style.opacity = '0.6';
-            }, 500);
-
-            // Details Panel
-            document.getElementById('detail-title').innerText = data.details.title;
-            document.getElementById('detail-desc').innerText = data.details.desc;
-            document.getElementById('detail-boat').innerText = data.details.boat;
-            document.getElementById('detail-boat-desc').innerText = data.details.boatDesc;
-            document.getElementById('detail-price').innerText = data.details.price;
-            document.getElementById('detail-price-desc').innerText = data.details.priceDesc;
-            document.getElementById('detail-duration').innerText = data.details.duration;
-            document.getElementById('detail-type').innerText = data.details.type;
-            
-            const cta = document.getElementById('detail-cta');
-            cta.querySelector('span').innerText = data.details.cta;
-            cta.className = `w-full text-white py-4 rounded-xl font-bold shadow-lg transition flex items-center justify-center gap-3 text-lg group ${locKey === 'hermanus' ? 'bg-slate-900 hover:bg-slate-800' : 'bg-cyan-700 hover:bg-cyan-600'}`;
-
-            // Map Flyover
-            if(mapObj) {
-                mapObj.flyTo(data.map.coords, data.map.zoom, { duration: 2 });
-                markerObj.setLatLng(data.map.coords);
-                markerObj.bindPopup(`<div class="text-center font-bold">${data.map.title}</div>`).openPopup();
-                document.getElementById('map-location-title').innerText = data.map.title;
-                document.getElementById('map-coords').innerText = `${Math.abs(data.map.coords[0])}° S | ${data.map.coords[1]}° E`;
+        },
+        yzerfontein: {
+            title1: "West Coast",
+            title2: "Expeditions",
+            desc: "Immerse yourself in the feeding grounds of the Humpback Supergroups. An adrenaline-fueled adventure on the wild West Coast.",
+            badge: "Specialized Expedition",
+            season: "Nov - Mar",
+            species: "Humpbacks",
+            boat: "Speed RIB",
+            price: "R 5,700",
+            colors: { text: "text-yellow-400", bg: "bg-yellow-500", gradient: "from-yellow-200 to-orange-500" },
+            detail: {
+                tag: "The Adventure Experience",
+                title: "Into the Supergroups.",
+                text: `<p>This is not a tour; it's an expedition. Launching from the rugged Yzerfontein harbour, we head into the nutrient-rich currents of the West Coast to find massive aggregations of feeding Humpback Whales.</p>
+                       <p>Aboard the high-performance <strong>Meganova</strong> RIB, we can keep pace with the action. Expect supergroups of 20-200 whales, thousands of dolphins, and a raw, unfiltered connection with nature.</p>`,
+                features: [
+                    "12-Seater RIB (High Speed Action)",
+                    "Full Day Expedition with Meals",
+                    "Exclusive & Intimate (Max 10 Pax)"
+                ],
+                images: [
+                    "https://images.unsplash.com/photo-1454991727061-be514faf41f9?q=80&w=600", // Humpback Surface
+                    "https://images.unsplash.com/photo-1583212292454-1fe6229603b7?q=80&w=600", // Wild Water
+                    "https://images.unsplash.com/photo-1501820488136-72669149e0d4?q=80&w=600", // Adventure
+                    "https://images.unsplash.com/photo-1568430321285-8d5423190df2?q=80&w=600"  // Fin
+                ]
             }
         }
+    };
 
-        document.addEventListener("DOMContentLoaded", function() {
-            mapObj = L.map('map', { zoomControl: false, scrollWheelZoom: false }).setView(locations.hermanus.map.coords, 14);
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-                attribution: '© OpenStreetMap © CARTO'
-            }).addTo(mapObj);
+    let currentLoc = 'hermanus';
 
-            markerObj = L.marker(locations.hermanus.map.coords).addTo(mapObj)
-                .bindPopup(`<div class="text-center font-bold">The Whale Shack</div>`).openPopup();
-        });
+    function switchLocation(loc) {
+        if (loc === currentLoc) return;
+        currentLoc = loc;
+        const data = content[loc];
+
+        // 1. Video Toggle
+        const vH = document.getElementById('vid-hermanus');
+        const vY = document.getElementById('vid-yzer');
+        
+        if (loc === 'hermanus') {
+            vH.style.opacity = '1';
+            vY.style.opacity = '0';
+            vH.play();
+        } else {
+            vH.style.opacity = '0';
+            vY.style.opacity = '1';
+            vY.play();
+        }
+
+        // 2. Buttons
+        const btnH = document.getElementById('btn-hermanus');
+        const btnY = document.getElementById('btn-yzer');
+        const activeClass = "bg-cyan-500 text-slate-950 shadow-lg"; 
+        const yzerActiveClass = "bg-yellow-500 text-slate-950 shadow-lg";
+        const inactiveClass = "text-white hover:bg-white/5";
+
+        if (loc === 'hermanus') {
+            btnH.className = `px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-500 ${activeClass}`;
+            btnY.className = `px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-500 ${inactiveClass}`;
+        } else {
+            btnY.className = `px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-500 ${yzerActiveClass}`;
+            btnH.className = `px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-500 ${inactiveClass}`;
+        }
+
+        // 3. Hero Text Transition
+        const contentDiv = document.getElementById('hero-content');
+        const statsDiv = document.getElementById('hero-stats');
+        
+        // Fade Out
+        contentDiv.style.opacity = '0';
+        contentDiv.style.transform = 'translateY(20px)';
+        statsDiv.style.opacity = '0';
+
+        setTimeout(() => {
+            // Update Text
+            document.getElementById('hero-badge').innerText = data.badge;
+            document.getElementById('hero-title-1').innerText = data.title1;
+            const title2 = document.getElementById('hero-title-2');
+            title2.innerText = data.title2;
+            title2.className = `block text-transparent bg-clip-text bg-gradient-to-r ${data.colors.gradient}`;
+            document.getElementById('hero-desc').innerHTML = data.desc;
+
+            // Update Stats
+            document.getElementById('stat-season').innerText = data.season;
+            document.getElementById('stat-season').className = `${data.colors.text} font-bold text-2xl md:text-3xl font-serif`;
+            document.getElementById('stat-species').innerText = data.species;
+            document.getElementById('stat-species').className = `${data.colors.text} font-bold text-2xl md:text-3xl font-serif`;
+            document.getElementById('stat-boat').innerText = data.boat;
+            document.getElementById('stat-boat').className = `${data.colors.text} font-bold text-2xl md:text-3xl font-serif`;
+            document.getElementById('stat-price').innerText = data.price;
+            document.getElementById('stat-price').className = `${data.colors.text} font-bold text-2xl md:text-3xl font-serif`;
+
+            // Update Details Section
+            document.getElementById('detail-tag').innerText = data.detail.tag;
+            document.getElementById('detail-tag').className = `${data.colors.text} font-bold tracking-widest text-xs uppercase mb-4 block`;
+            document.getElementById('detail-title').innerText = data.detail.title;
+            document.getElementById('detail-text').innerHTML = data.detail.text;
+            
+            // Update Feature List
+            const featureList = document.getElementById('detail-features');
+            featureList.innerHTML = data.detail.features.map(f => `
+                <li class="flex items-center gap-3 text-slate-300">
+                    <span class="material-symbols-outlined ${data.colors.text}">check_circle</span>
+                    <span>${f}</span>
+                </li>
+            `).join('');
+
+            // Update Grid Images
+            for(let i=0; i<4; i++) {
+                document.getElementById(`grid-img-${i+1}`).src = data.detail.images[i];
+            }
+
+            // Fade In
+            contentDiv.style.opacity = '1';
+            contentDiv.style.transform = 'translateY(0)';
+            statsDiv.style.opacity = '1';
+        }, 500);
+    }
+
+    // --- Maps Initialization ---
+    document.addEventListener("DOMContentLoaded", function() {
+        // Hermanus Map
+        const mapH = L.map('map-hermanus', { zoomControl: false, scrollWheelZoom: false, dragging: false }).setView([-34.433889, 19.218889], 13);
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png').addTo(mapH);
+        L.marker([-34.433889, 19.218889]).addTo(mapH);
+
+        // Yzerfontein Map
+        const mapY = L.map('map-yzer', { zoomControl: false, scrollWheelZoom: false, dragging: false }).setView([-33.3430, 18.1620], 13);
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png').addTo(mapY);
+        L.marker([-33.3430, 18.1620]).addTo(mapY);
+    });
 </script>
 </body>
 </html>
